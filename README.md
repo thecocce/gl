@@ -1,5 +1,10 @@
-# Graphics library (gl)
+# Graphics Library (gl)
 Includes a fast [vector rendering system](http://lab.polygonal.de/?p=916) based on the FP10 drawing API capable of drawing outline fonts *without* embedding any external resources. This allows high quality, extra-smooth font rendering that can be seamlessly integrated into the rendering pipeline.
+
+## Installation
+Install [Haxe](http://haxe.org/download) and run `$ haxelib install polygonal-gl` from the console.
+This installs the polygonal-gl library hosted on [lib.haxe.org](http://lib.haxe.org/p/polygonal-gl), which always mirrors the git master branch. From now on just compile with `$ haxe ... -lib polygonal-gl`.
+If you want to test the latest beta build, you should pull the dev branch and add the src folder to the classpath via `$ haxe ... -cp src`.
 
 ## Changelog
 
