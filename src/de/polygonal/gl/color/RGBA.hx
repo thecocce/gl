@@ -53,6 +53,9 @@ class RGBA
 	inline public static function getB(rgba:UInt):Int        { return rgba & 0xff; }
 	inline public static function setB(rgba:UInt, x:Int):Int { return x | (rgba & 0xffffff00); }
 	
+	inline public static function getRGB(rgba:UInt):Int        { return rgba & 0x00ffffff; }
+	inline public static function setRGB(rgba:UInt, x:Int):Int { return x | rgba; }
+	
 	inline public static function ofInt4(r:Int, g:Int, b:Int, a:Int):UInt { return a << 24 | r << 16 | g << 8 | b; }
 	
 	inline public static function ofFloat4(r:Float, g:Float, b:Float, a:Float):UInt

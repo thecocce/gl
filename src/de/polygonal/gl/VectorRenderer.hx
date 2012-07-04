@@ -54,7 +54,6 @@ import flash.display.IGraphicsData;
 #end
 
 using de.polygonal.core.math.Mathematics;
-using de.polygonal.gl.color.RGB;
 
 /**
  * A fast vector rendering system using the FP10 drawing API.

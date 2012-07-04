@@ -58,14 +58,10 @@
  */
 package de.polygonal.gl.color;
 
-#if debug
 import de.polygonal.core.macro.Assert;
-#end
-
 import de.polygonal.core.math.Mathematics;
-import flash.filters.ColorMatrixFilter;
 
-using de.polygonal.gl.color.RGB;
+using de.polygonal.gl.color.RGBA;
 
 /** Deficiency types used in <i>ColorMatrix.applyColorDeficiency()</i>*/
 enum ColorDeficiencyTypes
@@ -193,11 +189,13 @@ class ColorMatrix
 		matrix = new Array<Float>();
 	}
 	
-	public function getFilter():ColorMatrixFilter
+	#if flash
+	public function getFilter():flash.filters.ColorMatrixFilter
 	{
 		toArray(matrix);
-		return new ColorMatrixFilter(matrix);
+		return new flash.filters.ColorMatrixFilter(matrix);
 	}
+	#end
 	
 	public function identity():ColorMatrix
 	{
@@ -282,7 +280,7 @@ class ColorMatrix
 	
 	public function adjustHue(angle:Float):ColorMatrix
 	{
-		angle *= Mathematics.DEG_RAD;
+		angle *= M.DEG_RAD;
 		var c = Math.cos(angle);
 		var s = Math.sin(angle);
 		
@@ -324,9 +322,9 @@ class ColorMatrix
 	
 	public function colorize(rgb:Int, ?amount = 1.):ColorMatrix
 	{
-		var r = rgb.getRf();
-		var g = rgb.getGf();
-		var b = rgb.getBf();
+		var r = rgb.getR() / 0xff;
+		var g = rgb.getG() / 0xff;
+		var b = rgb.getB() / 0xff;
 		
 		var inv_amount = (1 - amount);
 		
@@ -526,7 +524,7 @@ class ColorMatrix
 	
 	public function rotateRed(angle:Float):ColorMatrix
 	{
-		angle *= Mathematics.DEG_RAD;
+		angle *= M.DEG_RAD;
 		var c = Math.cos(angle);
 		var s = Math.cos(angle);
 		
@@ -542,7 +540,7 @@ class ColorMatrix
 	
 	public function rotateGreen(angle:Float):ColorMatrix
 	{
-		angle *= Mathematics.DEG_RAD;
+		angle *= M.DEG_RAD;
 		var c = Math.cos(angle);
 		var s = Math.cos(angle);
 		
@@ -558,7 +556,7 @@ class ColorMatrix
 	
 	public function rotateBlue(angle:Float):ColorMatrix
 	{
-		angle *= Mathematics.DEG_RAD;
+		angle *= M.DEG_RAD;
 		var c = Math.cos(angle);
 		var s = Math.cos(angle);
 		
@@ -625,17 +623,17 @@ class ColorMatrix
 		return this;
 	}
 
-	public function applyMatrix(rgba:ColorRGBA, rgba:ColorRGBA):ColorRGBA
+	public function applyMatrix(input:ColorRGBA, output:ColorRGBA):ColorRGBA
 	{
-		var a = rgba.a;
-		var r = rgba.r;
-		var g = rgba.g;
-		var b = rgba.b;
-		out.a = Mathematics.clamp(Std.int(0.5 + r * m41 + g * m42 + b * m43 + a * m44 + m45), 0, 255);
-		out.r = Mathematics.clamp(Std.int(0.5 + r * m11 + g * m12 + b * m13 + a * m14 + m15), 0, 255);
-		out.g = Mathematics.clamp(Std.int(0.5 + r * m21 + g * m22 + b * m23 + a * m24 + m25), 0, 255);
-		out.b = Mathematics.clamp(Std.int(0.5 + r * m31 + g * m32 + b * m33 + a * m34 + m35), 0, 255);
-		return out;
+		var a = input.a;
+		var r = input.r;
+		var g = input.g;
+		var b = input.b;
+		output.a = M.clamp(Std.int(0.5 + r * m41 + g * m42 + b * m43 + a * m44 + m45), 0, 255);
+		output.r = M.clamp(Std.int(0.5 + r * m11 + g * m12 + b * m13 + a * m14 + m15), 0, 255);
+		output.g = M.clamp(Std.int(0.5 + r * m21 + g * m22 + b * m23 + a * m24 + m25), 0, 255);
+		output.b = M.clamp(Std.int(0.5 + r * m31 + g * m32 + b * m33 + a * m34 + m35), 0, 255);
+		return output;
 	}
 	
 	#if flash10

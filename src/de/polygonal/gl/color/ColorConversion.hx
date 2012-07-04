@@ -42,7 +42,7 @@ class ColorConversion
 	 * @param hsv Stores the result. If omitted, the method creates a new HSV object.
 	 * @return The <i>hsv</i> object or a new HSV object if <i>hsv</i> was not specified.
 	 */
-	inline public static function RGBtoHSV(rgb:RGB, ?hsv:HSV):HSV
+	inline public static function RGBtoHSV(rgb:ColorRGBA, hsv:HSV = null):HSV
 	{
 		if (hsv == null) hsv = new HSV();
 		
@@ -90,16 +90,16 @@ class ColorConversion
 	 * @param rgb Stores the result. If omitted, the method creates a new RGB object.
 	 * @return The <i>rgb</i> object or a new RGB object if <i>rgb</i> was not specified.
 	 */
-	inline public static function HSVtoRGB(hsv:HSV, ?rgb:RGB):RGB
+	inline public static function HSVtoRGB(hsv:HSV, rgb:ColorRGBA = null):ColorRGBA
 	{
-		if (rgb == null) rgb = new RGB();
+		if (rgb == null) rgb = new ColorRGBA();
 		
 		var s = hsv.s;
 		var v = hsv.v;
 		
 		if (s == 0)
 		{
-			rgb.set(v, v, v);
+			rgb.set3(v, v, v);
 			return rgb;
 		}
 		else
@@ -114,12 +114,12 @@ class ColorConversion
 			
 			switch (i)
 			{
-				case 0:  rgb.set(v, t, p);
-				case 1:  rgb.set(q, v, p);
-				case 2:  rgb.set(p, v, t);
-				case 3:  rgb.set(p, q, v);
-				case 4:  rgb.set(t, p, v);
-				default: rgb.set(v, p, q);
+				case 0:  rgb.set3(v, t, p);
+				case 1:  rgb.set3(q, v, p);
+				case 2:  rgb.set3(p, v, t);
+				case 3:  rgb.set3(p, q, v);
+				case 4:  rgb.set3(t, p, v);
+				default: rgb.set3(v, p, q);
 			}
 			
 			return rgb;

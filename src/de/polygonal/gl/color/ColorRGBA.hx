@@ -35,7 +35,7 @@ using de.polygonal.gl.color.RGBA;
 
 class ColorRGBA extends Vec3
 {
-	inline public static ofInt(rgba:Int):ColorRGBA
+	inline public static function ofInt(rgba:Int):ColorRGBA
 	{
 		return new ColorRGBA(rgba.getR(), rgba.getG(), rgba.getB(), rgba.getA());
 	}
@@ -43,6 +43,21 @@ class ColorRGBA extends Vec3
 	public function new(r = 0., g = 0., b = 0., a = 1.)
 	{
 		super(r, g, b, a);
+	}
+	
+	inline public function set3(r:Float, g:Float, b:Float):Void
+	{
+		x = r;
+		y = g;
+		z = b;
+	}
+	
+	inline public function set4(r:Float, g:Float, b:Float, a:Float):Void
+	{
+		x = r;
+		y = g;
+		z = b;
+		w = a;
 	}
 	
 	public var r(get_r, set_r):Float;

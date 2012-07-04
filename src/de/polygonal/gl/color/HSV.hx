@@ -29,6 +29,8 @@
  */
 package de.polygonal.gl.color;
 
+import de.polygonal.core.macro.Assert;
+
 class HSV 
 {
 	/** The hue in the range &#091;0,360&#093; */

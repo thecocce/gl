@@ -46,7 +46,7 @@ class RainbowGradient
 		_space = new HSV();
 	}
 	
-	public function getColor(steps:Int, i:Int, s = 1., v = 1.):RGB
+	public function getColor(steps:Int, i:Int, s = 1., v = 1.):ColorRGBA
 	{
 		_space.set((360 / steps) * i, s, v);
 		return ColorConversion.HSVtoRGB(_space);
