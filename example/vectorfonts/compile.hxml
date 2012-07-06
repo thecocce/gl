@@ -1,0 +1,43 @@
+-swf typeface-bitmap04.swf
+-main DrawBitmap04Typeface
+-swf-version 10
+-swf-header 900:1000:60:cccccc
+-lib polygonal
+--no-traces
+
+--next
+
+-swf typeface-vera.swf
+-main DrawBitstreamVeraTypeface
+-swf-version 10
+-swf-header 900:1000:60:cccccc
+-lib polygonal
+--no-traces
+
+--next
+
+-swf corewebfonts.swf
+-main DrawCoreWebFonts
+-swf-version 10
+-swf-header 900:1000:60:cccccc
+-lib polygonal
+--no-traces
+
+--next
+
+-swf pixelfonts.swf
+-main DrawPixelFonts
+-swf-version 10
+-swf-header 900:1000:60:cccccc
+-cp ./src
+-lib polygonal
+--no-traces
+
+--next
+
+-swf font-creator.swf
+-main FontCreator
+-swf-version 10
+-swf-header 900:1000:60:cccccc
+-lib polygonal
+--no-traces
