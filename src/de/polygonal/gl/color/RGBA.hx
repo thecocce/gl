@@ -41,20 +41,20 @@ private typedef UInt = Int;
  */
 class RGBA
 {
-	inline public static function getA(rgba:UInt):Int        { return rgba >>> 24; }
-	inline public static function setA(rgba:UInt, x:Int):Int { return (x << 24) | (rgba & 0x00ffffff); }
+	inline public static function getA(rgba:UInt):UInt        { return rgba >>> 24; }
+	inline public static function setA(rgba:UInt, x:Int):UInt { return (x << 24) | (rgba & 0x00ffffff); }
 	
-	inline public static function getR(rgba:UInt):Int        { return rgba >> 16 & 0xff; }
-	inline public static function setR(rgba:UInt, x:Int):Int { return (x << 16) | (rgba & 0xff00ffff); }
+	inline public static function getR(rgba:UInt):UInt        { return rgba >> 16 & 0xff; }
+	inline public static function setR(rgba:UInt, x:Int):UInt { return (x << 16) | (rgba & 0xff00ffff); }
 	
-	inline public static function getG(rgba:UInt):Int        { return rgba >> 8 & 0xff; }
-	inline public static function setG(rgba:UInt, x:Int):Int { return (x << 8) | (rgba & 0xffff00ff); }
+	inline public static function getG(rgba:UInt):UInt        { return rgba >> 8 & 0xff; }
+	inline public static function setG(rgba:UInt, x:Int):UInt { return (x << 8) | (rgba & 0xffff00ff); }
 	
-	inline public static function getB(rgba:UInt):Int        { return rgba & 0xff; }
-	inline public static function setB(rgba:UInt, x:Int):Int { return x | (rgba & 0xffffff00); }
+	inline public static function getB(rgba:UInt):UInt        { return rgba & 0xff; }
+	inline public static function setB(rgba:UInt, x:Int):UInt { return x | (rgba & 0xffffff00); }
 	
-	inline public static function getRGB(rgba:UInt):Int        { return rgba & 0x00ffffff; }
-	inline public static function setRGB(rgba:UInt, x:Int):Int { return x | rgba; }
+	inline public static function getRGB(rgba:UInt):UInt        { return rgba & 0x00ffffff; }
+	inline public static function setRGB(rgba:UInt, x:Int):UInt { return x | rgba; }
 	
 	inline public static function ofInt4(r:Int, g:Int, b:Int, a:Int):UInt { return a << 24 | r << 16 | g << 8 | b; }
 	

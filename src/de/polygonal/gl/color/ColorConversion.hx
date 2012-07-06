@@ -39,12 +39,12 @@ class ColorConversion
 {
 	/**
 	 * Converts an <i>rgb</i> color value to a <i>hsv</i> color value.
-	 * @param hsv Stores the result. If omitted, the method creates a new HSV object.
-	 * @return The <i>hsv</i> object or a new HSV object if <i>hsv</i> was not specified.
+	 * @param hsv Stores the result. If omitted, the method creates a new ColorHSV object.
+	 * @return The <i>hsv</i> object or a new ColorHSV object if <i>hsv</i> was not specified.
 	 */
-	inline public static function RGBtoHSV(rgb:ColorRGBA, hsv:HSV = null):HSV
+	inline public static function RGBtoHSV(rgb:ColorRGBA, hsv:ColorHSV = null):ColorHSV
 	{
-		if (hsv == null) hsv = new HSV();
+		if (hsv == null) hsv = new ColorHSV();
 		
 		var r = rgb.r;
 		var g = rgb.g;
@@ -90,7 +90,7 @@ class ColorConversion
 	 * @param rgb Stores the result. If omitted, the method creates a new RGB object.
 	 * @return The <i>rgb</i> object or a new RGB object if <i>rgb</i> was not specified.
 	 */
-	inline public static function HSVtoRGB(hsv:HSV, rgb:ColorRGBA = null):ColorRGBA
+	inline public static function HSVtoRGB(hsv:ColorHSV, rgb:ColorRGBA = null):ColorRGBA
 	{
 		if (rgb == null) rgb = new ColorRGBA();
 		

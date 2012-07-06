@@ -35,9 +35,14 @@ using de.polygonal.gl.color.RGBA;
 
 class ColorRGBA extends Vec3
 {
-	inline public static function ofInt(rgba:Int):ColorRGBA
+	inline public static function ofInt(x:Int):ColorRGBA
 	{
-		return new ColorRGBA(rgba.getR(), rgba.getG(), rgba.getB(), rgba.getA());
+		return new ColorRGBA(x.getR(), x.getG(), x.getB(), x.getA());
+	}
+	
+	inline public static function toInt(x:ColorRGBA):UInt
+	{
+		return RGBA.ofFloat4(x.r, x.g, x.b, x.a);
 	}
 	
 	public function new(r = 0., g = 0., b = 0., a = 1.)

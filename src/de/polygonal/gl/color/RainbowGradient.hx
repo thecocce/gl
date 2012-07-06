@@ -39,11 +39,11 @@ class RainbowGradient
 		return _instance;
 	}
 	
-	var _space:HSV;
+	var _space:ColorHSV;
 	
 	public function new()
 	{
-		_space = new HSV();
+		_space = new ColorHSV();
 	}
 	
 	public function getColor(steps:Int, i:Int, s = 1., v = 1.):ColorRGBA

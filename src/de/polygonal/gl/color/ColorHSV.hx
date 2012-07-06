@@ -31,7 +31,7 @@ package de.polygonal.gl.color;
 
 import de.polygonal.core.macro.Assert;
 
-class HSV 
+class ColorHSV
 {
 	/** The hue in the range &#091;0,360&#093; */
 	public var h:Float;
