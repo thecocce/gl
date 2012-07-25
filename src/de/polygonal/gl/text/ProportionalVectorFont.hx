@@ -340,10 +340,10 @@ class ProportionalVectorFont extends VectorFont
 		var output = new Array<AABB2>();
 		k = 0;
 		
-		var minX0 = Mathematics.POSITIVE_INFINITY;
-		var minY0 = Mathematics.POSITIVE_INFINITY;
-		var maxX0 = Mathematics.NEGATIVE_INFINITY;
-		var maxY0 = Mathematics.NEGATIVE_INFINITY;
+		var minX0 = M.POSITIVE_INFINITY;
+		var minY0 = M.POSITIVE_INFINITY;
+		var maxX0 = M.NEGATIVE_INFINITY;
+		var maxY0 = M.NEGATIVE_INFINITY;
 		var minX1, minY1, maxX1, maxY1;
 		
 		var code = _getCharCode(text, 0);

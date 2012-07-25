@@ -1,4 +1,4 @@
-# Graphics Library (gl)
+# Graphics library (gl)
 Includes a fast [vector rendering system](http://lab.polygonal.de/?p=916) based on the FP10 drawing API capable of drawing outline fonts *without* embedding any external resources. This allows high quality, extra-smooth font rendering that can be seamlessly integrated into the rendering pipeline.
 
 ## Installation
