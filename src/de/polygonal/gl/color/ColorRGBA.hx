@@ -33,6 +33,10 @@ import de.polygonal.core.math.Vec3;
 
 using de.polygonal.gl.color.RGBA;
 
+#if nme
+private typedef UInt = Int;
+#end
+
 class ColorRGBA extends Vec3
 {
 	inline public static function ofInt(x:Int):ColorRGBA
