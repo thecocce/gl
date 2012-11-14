@@ -33,6 +33,7 @@ import de.polygonal.core.math.Mathematics;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.ds.mem.IntMemory;
 import de.polygonal.motor.geom.primitive.AABB2;
+import de.polygonal.core.util.Assert;
 
 /**
  * The base class of a proportional typeface which uses varying widths for the glyphs.
@@ -478,7 +479,7 @@ class ProportionalVectorFont extends VectorFont
 		var data = VectorFont.GetSharedData().get(className);
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(data != null, "data != null");
+		D.assert(data != null, "data != null");
 		#end
 		
 		if (data.spacingTable == null)

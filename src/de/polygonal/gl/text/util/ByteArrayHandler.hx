@@ -36,7 +36,7 @@ import de.polygonal.core.io.Resource;
 import de.polygonal.core.io.ResourceEvent;
 import de.polygonal.core.io.ResourceLoaderEvent;
 import de.polygonal.core.io.ResourceType;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 import de.polygonal.ds.Hashable;
 import de.polygonal.ds.LinkedQueue;
 import flash.net.URLRequest;

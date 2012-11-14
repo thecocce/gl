@@ -37,7 +37,7 @@ import de.polygonal.core.io.ResourceEvent;
 import de.polygonal.core.io.ResourceLoader;
 import de.polygonal.core.io.ResourceLoaderEvent;
 import de.polygonal.core.io.ResourceType;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 import flash.events.Event;
 import flash.Lib;
 import flash.net.FileFilter;

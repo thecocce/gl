@@ -31,6 +31,7 @@ package de.polygonal.gl;
 
 import de.polygonal.ds.mem.IntMemory;
 import de.polygonal.ds.mem.ShortMemory;
+import de.polygonal.core.util.Assert;
 
 class Raster
 {
@@ -250,7 +251,7 @@ class Raster
 			reverse = false;
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(dx != 0, 'dx != 0');
+		D.assert(dx != 0, 'dx != 0');
 		#end
 		
 		if (a1 > a2)
@@ -811,7 +812,7 @@ class Raster
 			reverse = false;
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(dx != 0, 'dx != 0');
+		D.assert(dx != 0, 'dx != 0');
 		#end
 		
 		if (a1 > a2)

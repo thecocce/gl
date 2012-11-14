@@ -29,7 +29,7 @@
  */
 package de.polygonal.gl.color;
 
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 
 class ColorHSV
 {

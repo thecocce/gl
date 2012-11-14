@@ -58,7 +58,7 @@
  */
 package de.polygonal.gl.color;
 
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 import de.polygonal.core.math.Mathematics;
 
 using de.polygonal.gl.color.RGBA;

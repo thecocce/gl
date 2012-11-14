@@ -31,7 +31,7 @@ package de.polygonal.gl.text.util;
 
 import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.fmt.ASCII;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 
 /**
  * Helper class for computing the kerning table from an <i>EPSFMetricsReader</i> object.
