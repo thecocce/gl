@@ -8,6 +8,10 @@ If you want to test the latest beta build, you should pull the dev branch and ad
 
 ## Changelog
 
+### 1.04 (dev)
+
+ * minor
+
 ### 1.03 (released 2011-07-17)
 
  * fixed: don't snap to integer coordinates when drawing centered proportional text
