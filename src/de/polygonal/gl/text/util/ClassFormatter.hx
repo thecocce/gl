@@ -32,7 +32,7 @@ package de.polygonal.gl.text.util;
 import de.polygonal.core.io.Base64;
 import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.fmt.ASCII;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 import de.polygonal.ds.LinkedQueue;
 import flash.utils.ByteArray;
 

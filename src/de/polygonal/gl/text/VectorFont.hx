@@ -29,9 +29,9 @@
  */
 package de.polygonal.gl.text;
 
-import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.fmt.ASCII;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.fmt.Sprintf;
+import de.polygonal.core.util.Assert;
 import de.polygonal.gl.VectorRenderer;
 import de.polygonal.motor.geom.primitive.AABB2;
 
@@ -129,7 +129,7 @@ class VectorFont
 		var data = GetSharedData().get(className);
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(data != null, "data != null");
+		D.assert(data != null, "data != null");
 		#end
 		
 		data.counter--;
@@ -295,7 +295,7 @@ class VectorFont
 	function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
 	{
 		#if debug
-		Assert.assert(_vr != null, "no VectorRenderer assigned");
+		D.assert(_vr != null, "no VectorRenderer assigned");
 		#end
 		
 		var cmd = _cmd[charCode];

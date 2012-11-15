@@ -32,7 +32,7 @@ package de.polygonal.gl;
 import de.polygonal.core.math.Limits;
 import de.polygonal.core.math.Mathematics;
 import de.polygonal.core.math.Vec2;
-import de.polygonal.core.macro.Assert;
+import de.polygonal.core.util.Assert;
 import de.polygonal.ds.mem.ByteMemory;
 import de.polygonal.ds.mem.FloatMemory;
 import de.polygonal.ds.mem.ShortMemory;
@@ -42,6 +42,7 @@ import de.polygonal.motor.geom.primitive.OBB2;
 import de.polygonal.motor.geom.primitive.Plane2;
 import de.polygonal.motor.geom.primitive.Poly2;
 import de.polygonal.motor.geom.primitive.Sphere2;
+import de.polygonal.core.util.Assert;
 
 #if flash
 import flash.display.Graphics;
@@ -316,7 +317,7 @@ class VectorRenderer
 	inline public function fillEnd():Void
 	{
 		#if debug
-		de.polygonal.core.macro.Assert.assert(_fill, "fillStart() was not called");
+		D.assert(_fill, "fillStart() was not called");
 		_fill = false;
 		#end
 		
@@ -1225,7 +1226,7 @@ class VectorRenderer
 		var k = (maxCount != -1) ? maxCount : Std.int(vertexList.length);
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(vertexList.length >= maxCount, "vertexList.length >= maxCount");
+		D.assert(vertexList.length >= maxCount, "vertexList.length >= maxCount");
 		#end
 		
 		if (k < 4) return;
@@ -1274,7 +1275,7 @@ class VectorRenderer
 		var k = (maxCount != -1) ? maxCount : Std.int(vertexList.length);
 		
 		#if debug
-		de.polygonal.core.macro.Assert.assert(vertexList.length >= maxCount, "vertexList.length >= maxCount");
+		D.assert(vertexList.length >= maxCount, "vertexList.length >= maxCount");
 		#end
 		
 		if (k <= 1) return;
@@ -1761,7 +1762,7 @@ class VectorRenderer
 	inline function _posf(n:Int):Int
 	{
 		#if debug
-		de.polygonal.core.macro.Assert.assert(_di + n < _db.size,
+		D.assert(_di + n < _db.size,
 			de.polygonal.core.fmt.Sprintf.format("alchemy cache too small (floats req./rem./max.: %d/%d/%d ", [n, _db.size - _di, _db.size]));
 		#end
 		var addr = _db.getAddr(_di);
@@ -1789,7 +1790,7 @@ class VectorRenderer
 	inline function _posb(n:Int):Int
 	{
 		#if debug
-		de.polygonal.core.macro.Assert.assert(_ci + n < _cb.size,
+		D.assert(_ci + n < _cb.size,
 			de.polygonal.core.fmt.Sprintf.format("alchemy cache too small (bytes req./rem./max.: %d/%d/%d ", [n, _cb.size - _ci, _cb.size]));
 		#end
 		
@@ -1855,7 +1856,7 @@ private class Pool<T>
 	public function new(size:Int, c:Class<T>)
 	{
 		#if debug
-		de.polygonal.core.macro.Assert.assert(size < Limits.UINT16_MAX, "size < Mathematics.UINT16_MAX");
+		D.assert(size < Limits.UINT16_MAX, "size < Mathematics.UINT16_MAX");
 		#end
 		
 		_class          = c;
