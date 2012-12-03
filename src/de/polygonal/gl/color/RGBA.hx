@@ -31,7 +31,7 @@ package de.polygonal.gl.color;
 
 using de.polygonal.core.math.Mathematics;
 
-#if cpp
+#if (cpp || js)
 private typedef UInt = Int;
 #end
 
