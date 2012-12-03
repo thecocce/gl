@@ -189,7 +189,7 @@ class ColorMatrix
 		matrix = new Array<Float>();
 	}
 	
-	#if flash
+	#if (flash || nme)
 	public function getFilter():flash.filters.ColorMatrixFilter
 	{
 		toArray(matrix);
@@ -636,6 +636,15 @@ class ColorMatrix
 		return output;
 	}
 	
+	public function toArray(out:Array<Float>):Array<Float>
+	{
+		out[ 0] = m11; out[ 1] = m12; out[ 2] = m13; out[ 3] = m14; out[ 4] = m15;
+		out[ 5] = m21; out[ 6] = m22; out[ 7] = m23; out[ 8] = m24; out[ 9] = m25;
+		out[10] = m31; out[11] = m32; out[12] = m33; out[13] = m34; out[14] = m35;
+		out[15] = m41; out[16] = m42; out[17] = m43; out[18] = m44; out[19] = m45;
+		return out;
+	}
+	
 	#if flash10
 	public function transformVector(values:flash.Vector<Float>):flash.Vector<Float>
 	#else
@@ -697,15 +706,6 @@ class ColorMatrix
 			postHue.rotateGreen(greenRotation);
 			postHue.rotateRed(-45.0);
 		}
-	}
-	
-	inline function toArray(out:Array<Float>):Array<Float>
-	{
-		out[ 0] = m11; out[ 1] = m12; out[ 2] = m13; out[ 3] = m14; out[ 4] = m15;
-		out[ 5] = m21; out[ 6] = m22; out[ 7] = m23; out[ 8] = m24; out[ 9] = m25;
-		out[10] = m31; out[11] = m32; out[12] = m33; out[13] = m34; out[14] = m35;
-		out[15] = m41; out[16] = m42; out[17] = m43; out[18] = m44; out[19] = m45;
-		return out;
 	}
 	
 	inline function set

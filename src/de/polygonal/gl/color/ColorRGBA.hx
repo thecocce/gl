@@ -33,7 +33,7 @@ import de.polygonal.core.math.Vec3;
 
 using de.polygonal.gl.color.RGBA;
 
-#if nme
+#if (cpp || js)
 private typedef UInt = Int;
 #end
 
