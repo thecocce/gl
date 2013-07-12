@@ -8,9 +8,9 @@ If you want to test the latest beta build, you should pull the dev branch and ad
 
 ## Changelog
 
-### 1.04 (dev)
+### 1.04 (released 2013-07-12)
 
- * minor
+ * fixed: support Haxe 3
 
 ### 1.03 (released 2011-07-17)
 
