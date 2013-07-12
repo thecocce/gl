@@ -173,23 +173,23 @@ class ByteArrayHandler implements IObserver
 			{
 				switch (que.dequeue())
 				{
-					case 'm':
+					case "m":
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						buffer.enqueue('m');
+						buffer.enqueue("m");
 						buffer.enqueue(x);
 						buffer.enqueue(y);
 						
-					case 'l':
+					case "l":
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						buffer.enqueue('l');
+						buffer.enqueue("l");
 						buffer.enqueue(x);
 						buffer.enqueue(y);
 						
-					case 'c':
+					case "c":
 						
 						var x0 = que.dequeue();
 						var y0 = que.dequeue();
@@ -199,7 +199,7 @@ class ByteArrayHandler implements IObserver
 						var y2 = que.dequeue();
 						var x3 = que.dequeue();
 						var y3 = que.dequeue();
-						buffer.enqueue('c');
+						buffer.enqueue("c");
 						buffer.enqueue(x0);
 						buffer.enqueue(y0);
 						buffer.enqueue(x1);
@@ -224,21 +224,21 @@ class ByteArrayHandler implements IObserver
 				var x = buffer.dequeue();
 				switch (x)
 				{
-					case 'm':
+					case "m":
 					
 					bytes.writeByte(1);
 					bytes.writeFloat(buffer.dequeue());
 					bytes.writeFloat(buffer.dequeue());
 					k += 3;
 					
-					case 'l':
+					case "l":
 					
 					bytes.writeByte(2);
 					bytes.writeFloat(buffer.dequeue());
 					bytes.writeFloat(buffer.dequeue());
 					k += 3;
 					
-					case 'c':
+					case "c":
 					
 					bytes.writeByte(3);
 					bytes.writeFloat(buffer.dequeue());

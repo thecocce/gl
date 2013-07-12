@@ -172,7 +172,7 @@ class EPSFMetricsReader
 			var char = s.charAt(_index);
 			if (code <= ASCII.SPACE)
 			{
-				if (char == ' ')
+				if (char == " ")
 				{
 					if (!paren)
 					{
@@ -189,7 +189,7 @@ class EPSFMetricsReader
 			
 			switch (char)
 			{
-				case 'w':
+				case "w":
 				
 				if (s.charAt(_index + 1) == "i")
 				{
@@ -197,7 +197,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case 'k':
+				case "k":
 				
 				if (s.charAt(_index + 1) == "e")
 				{
@@ -205,7 +205,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case '\\':
+				case "\\":
 				
 				if (paren)
 				{
@@ -219,7 +219,7 @@ class EPSFMetricsReader
 					}
 				}
 				
-				case '(':
+				case "(":
 				
 				if (escape)
 				{
@@ -237,7 +237,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case ')':
+				case ")":
 				
 				if (escape)
 				{
@@ -259,7 +259,7 @@ class EPSFMetricsReader
 			}
 			else
 			{
-				var sign = (s.charAt(_index) == '-');
+				var sign = (s.charAt(_index) == "-");
 				if ((code >= ASCII.ZERO && code <= ASCII.NINE) || sign)
 				{
 					token.type = TokenType.INT;
@@ -408,22 +408,22 @@ class EPSFMetricsReader
 			var c = s.charAt(_index);
 			switch (c)
 			{
-				case '%':
+				case "%":
 				
-				while (c == '%') c = s.charAt(++_index);
-				if (c == 'T')
+				while (c == "%") c = s.charAt(++_index);
+				if (c == "T")
 				{
 					//%%Trailer
 					t.type = VOID;
 					return;
 				}
 				else
-				if (c == '[')
+				if (c == "[")
 				{
 					//%%[Char name=], Char number, x offset, y offset, x width, y width, unicode value
 					//%%Note:exclam=33 9 620 34.729 0 33
-					while (c != ':') c = s.charAt(++_index);
-					while (c != '=') c = s.charAt(++_index);
+					while (c != ":") c = s.charAt(++_index);
+					while (c != "=") c = s.charAt(++_index);
 					_index++;
 					
 					t.type = CHAR_INFO;
@@ -436,32 +436,32 @@ class EPSFMetricsReader
 					t.charInfo.unicodeValue = _readSignedInteger(s);
 				}
 				
-				case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-':
+				case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-":
 				
 				t.float = _readFloat(s);
 				t.type = FLOAT;
 				
-				case 'm':
+				case "m":
 				
 				t.type = OPERATOR;
 				t.operator = MOVE_TO;
 				
-				case 'c':
+				case "c":
 				
 				t.type = OPERATOR;
 				t.operator = CURVE_TO;
 				
-				case 'l':
+				case "l":
 				
 				t.type = OPERATOR;
 				t.operator = LINE_TO;
 				
-				case 's':
+				case "s":
 				
 				t.type = OPERATOR;
 				t.operator = STROKE;
 				
-				case 'S':
+				case "S":
 				
 				t.type = OPERATOR;
 				t.operator = STROKE_CLOSE;
@@ -605,14 +605,14 @@ class EPSFMetricsReader
 						x = p.x;
 						y = p.y;
 						
-						output.enqueue('m');
+						output.enqueue("m");
 						output.enqueue(x);
 						output.enqueue(y);
 						
 						
 						_drawMoveTo(x, y, c);
 						
-						//drawIndex(x, y, 'm' + c);
+						//drawIndex(x, y, "m" + c);
 						c++;
 						
 					case LINE_TO:
@@ -630,7 +630,7 @@ class EPSFMetricsReader
 						x = p.x;
 						y = p.y;
 						
-						output.enqueue('l');
+						output.enqueue("l");
 						output.enqueue(x);
 						output.enqueue(y);
 						
@@ -638,7 +638,7 @@ class EPSFMetricsReader
 						
 						_drawLineTo(x, y, c);
 						
-						//drawIndex(x, y, 'l' + c);
+						//drawIndex(x, y, "l" + c);
 						c++;
 						
 					case CURVE_TO:
@@ -685,7 +685,7 @@ class EPSFMetricsReader
 						aabb.addPoint(x1, y1);
 						aabb.addPoint(x, y);
 						
-						output.enqueue('c');
+						output.enqueue("c");
 						output.enqueue(x);
 						output.enqueue(y);
 						output.enqueue(x1);
@@ -697,10 +697,10 @@ class EPSFMetricsReader
 						
 						_drawCurveTo(x, y, x1, y1, x2, y2, x3, y3);
 						
-						//drawIndex(x, y, 'c' + (c + 0));
-						//drawIndex(x, y, 'c' + (c + 1));
-						//drawIndex(x, y, 'c' + (c + 2));
-						//drawIndex(x, y, 'c' + (c + 3));
+						//drawIndex(x, y, "c" + (c + 0));
+						//drawIndex(x, y, "c" + (c + 1));
+						//drawIndex(x, y, "c" + (c + 2));
+						//drawIndex(x, y, "c" + (c + 3));
 						
 						x = x3;
 						y = y3;
@@ -802,7 +802,7 @@ class EPSFMetricsReader
 		}
 		
 		var sign = 1;
-		if (s.charAt(_index) == '-')
+		if (s.charAt(_index) == "-")
 		{
 			sign = -1;
 			_index++;
@@ -868,7 +868,7 @@ class EPSFMetricsReader
 		}
 		
 		var sign = 1;
-		if (s.charAt(_index) == '-')
+		if (s.charAt(_index) == "-")
 		{
 			sign = -1;
 			_index++;

@@ -49,7 +49,7 @@ class ClassFormatter
 	{
 		_data = data;
 		
-		var s = '';
+		var s = "";
 		
 		var formattedGlyphData = formatGlyphs();
 		
@@ -60,12 +60,12 @@ class ClassFormatter
 		s += _writeLine(Printf.format("class %s extends de.polygonal.gl.text.%s", [_data.name, _data.isMonoSpace ? "MonospaceVectorFont" : "ProportionalVectorFont"]));
 		s += _writeLine("{");
 		
-		var superArgs = '';
+		var superArgs = "";
 		if (_data.isMonoSpace)
 			superArgs = Printf.format("super(%d, %d, %d, %d, %s);", [_data.emsquare, _data.ascent, _data.descent, _data.spacingValues[33], "BOUNDS_TABLE"]);
 		else
 		{
-			var kerning = _data.kerningPairs.length == 0 ? 'null' : "KERNING_TABLE";
+			var kerning = _data.kerningPairs.length == 0 ? "null" : "KERNING_TABLE";
 			superArgs = Printf.format("super(%d, %d, %d, %s, %s, %s);", [_data.emsquare, _data.ascent, _data.descent, "BOUNDS_TABLE", "SPACING_TABLE", kerning]);
 		}
 		
@@ -102,7 +102,7 @@ class ClassFormatter
 		s += _writeEmptyLine();
 		s += formattedGlyphData;
 		s += _writeLine("#end", 1);
-		s += '}';
+		s += "}";
 		
 		output = s;
 	}
@@ -115,14 +115,14 @@ class ClassFormatter
 		var s = Base64.encode(bytes, true, 200);
 		var t = s.split("\n");
 		for (i in 0...t.length)
-			t[i] = '"' + t[i] + '"';
+			t[i] = "\"" + t[i] + "\"";
 		return t.join("+\n") + "\n";
 	}
 	
 	function formatSpacing():String
 	{
 		var s = _formatIntArray(20, "%4d", _data.spacingValues);
-		s = "static var SPACING_TABLE:Array<Int> =\n[\n" + _blockIndent(s + '\n', 1) + "];\n";
+		s = "static var SPACING_TABLE:Array<Int> =\n[\n" + _blockIndent(s + "\n", 1) + "];\n";
 		s = _blockIndent(s, 1);
 		return s;
 	}
@@ -130,14 +130,14 @@ class ClassFormatter
 	function formatKerning():String
 	{
 		var s = _formatIntArray(20, "%4d", KerningTable.compute(_data));
-		s = "static var KERNING_TABLE:Array<Int> =\n[\n" + _blockIndent(s + '\n', 1) + "];\n";
+		s = "static var KERNING_TABLE:Array<Int> =\n[\n" + _blockIndent(s + "\n", 1) + "];\n";
 		s = _blockIndent(s, 1);
 		return s;
 	}
 	
 	function formatGlyphs():String
 	{
-		var formattedOutput = '';
+		var formattedOutput = "";
 		
 		for (i in 0..._data.charCodeRange.length)
 		{
@@ -151,33 +151,33 @@ class ClassFormatter
 			var valPos = 0;
 			var cmdPos = 0;
 			
-			var s = '';
-			var valStr = '';
-			var cmdStr = '';
+			var s = "";
+			var valStr = "";
+			var cmdStr = "";
 			
 			while (que.size() > 0)
 			{
 				var k = que.dequeue();
 				switch (k)
 				{
-					case 'm':
+					case "m":
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
-						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
-						cmdStr += Printf.format("_setb(%s + %2d, 1);\n", ['o', cmdPos++]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ["o", valPos++, x]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ["o", valPos++, y]);
+						cmdStr += Printf.format("_setb(%s + %2d, 1);\n", ["o", cmdPos++]);
 						
 						
-					case 'l':
+					case "l":
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
-						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
-						cmdStr += Printf.format("_setb(%s + %2d, 2);\n", ['o', cmdPos++]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ["o", valPos++, x]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ["o", valPos++, y]);
+						cmdStr += Printf.format("_setb(%s + %2d, 2);\n", ["o", cmdPos++]);
 						
-					case 'c':
+					case "c":
 						
 						if (valPos > 0)
 						{
@@ -186,8 +186,8 @@ class ClassFormatter
 							s += Printf.format("o = _posb(%d);\n", [cmdPos]);
 							s += cmdStr;
 							
-							valStr = '';
-							cmdStr = '';
+							valStr = "";
+							cmdStr = "";
 							valPos = 0;
 							cmdPos = 0;
 						}
@@ -220,7 +220,7 @@ class ClassFormatter
 			formattedOutput += s;
 		}
 		
-		var s = '';
+		var s = "";
 		s += "\toverride function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)\n";
 		s += "\t{\n";
 		s += "\t\tvar o = 0;\n";
@@ -263,18 +263,18 @@ class ClassFormatter
 	
 	function _writeLine(text:String, ?indent:Int = 0):String
 	{
-		var tabs = StringTools.rpad('', "\t", indent);
+		var tabs = StringTools.rpad("", "\t", indent);
 		return tabs + text + "\n";
 	}
 	
 	function _writeEmptyLine(?indent:Int = 0):String
 	{
-		return StringTools.rpad('', "\t", indent) + "\n";
+		return StringTools.rpad("", "\t", indent) + "\n";
 	}
 	
 	function _blockIndent(s:String, levels:Int):String
 	{
-		var tabs = StringTools.rpad('', "\t", levels);
+		var tabs = StringTools.rpad("", "\t", levels);
 		var a = s.split("\n");
 		var t = a.pop();
 		return tabs + a.join("\n" + tabs) + t + "\n";
@@ -297,7 +297,7 @@ class ClassFormatter
 		if (remainder > 0)
 		{
 			//throw remainder;
-			var s = '';
+			var s = "";
 			if (remainder > 1)
 			{
 				s = Printf.format(_repeat(format, remainder - 1, ", "), data.slice(data.length - remainder, data.length - 1));

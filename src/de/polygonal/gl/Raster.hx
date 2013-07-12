@@ -251,7 +251,7 @@ class Raster
 			reverse = false;
 		
 		#if debug
-		D.assert(dx != 0, 'dx != 0');
+		D.assert(dx != 0, "dx != 0");
 		#end
 		
 		if (a1 > a2)
@@ -812,7 +812,7 @@ class Raster
 			reverse = false;
 		
 		#if debug
-		D.assert(dx != 0, 'dx != 0');
+		D.assert(dx != 0, "dx != 0");
 		#end
 		
 		if (a1 > a2)

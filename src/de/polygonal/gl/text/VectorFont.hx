@@ -190,7 +190,7 @@ class VectorFont
 	public function writeCharSet(x:Float, y:Float, maxWidth:Float):AABB2
 	{
 		var name = Type.getClassName(Type.getClass(this));
-		var text = name.substr(name.lastIndexOf('.') + 1) + "\n";
+		var text = name.substr(name.lastIndexOf(".") + 1) + "\n";
 		
 		var s = text;
 		var c = 0;
@@ -204,7 +204,7 @@ class VectorFont
 			if (getBound(s, x, y, false, true, new AABB2()).intervalX > maxWidth)
 			{
 				text += "\n";
-				s = '';
+				s = "";
 			}
 		}
 		

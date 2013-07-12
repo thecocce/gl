@@ -207,8 +207,8 @@ class EPSConvert implements IObserver
 	function _getClassName(s:String):String
 	{
 		s = s.substr(0, s.length - 4);
-		s = s.substr(s.indexOf('/') + 1);
-		s = s.split(' ').join('');
+		s = s.substr(s.indexOf("/") + 1);
+		s = s.split(" ").join("");
 		return s;
 	}
 }

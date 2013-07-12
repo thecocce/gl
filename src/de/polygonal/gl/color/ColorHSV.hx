@@ -50,9 +50,9 @@ class ColorHSV
 	inline public function set(h:Float, s:Float, v:Float)
 	{
 		#if debug
-		D.assert(h >= 0 && h <= 360, 'h >= 0 && h <= 360');
-		D.assert(s >= 0 && s <= 1, 's >= 0 && s <= 1');
-		D.assert(v >= 0 && v <= 1, 'v >= 0 && v <= 1');
+		D.assert(h >= 0 && h <= 360, "h >= 0 && h <= 360");
+		D.assert(s >= 0 && s <= 1, "s >= 0 && s <= 1");
+		D.assert(v >= 0 && v <= 1, "v >= 0 && v <= 1");
 		#end
 		
 		this.h = s == 0 ? -1 : h;
