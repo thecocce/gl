@@ -174,7 +174,7 @@ class Bitmap04b19 extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,          0,    -78.570,     35.713,    -57.142
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

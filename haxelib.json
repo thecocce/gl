@@ -1,0 +1,14 @@
+{
+	"name": "polygonal-gl",
+	"license": "MIT",
+	"description": "graphics toolbox",
+	"url": "https://github.com/polygonal/gl",
+	"tags": ["utility"],
+	"contributors" : ["mbaczynski"],
+	"version": "1.0.4",
+	"releasenote": "See README",
+	"dependencies":
+	{
+		"polygonal-motor":""
+	}
+}

@@ -276,7 +276,7 @@ class BitstreamVeraSansMonoBold extends de.polygonal.gl.text.MonospaceVectorFont
 		 126,      4.297,    -39.599,     55.907,    -22.607
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

@@ -320,7 +320,7 @@ class TrebuchetMSItalic extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      6.250,    -38.183,     46.239,    -24.267
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

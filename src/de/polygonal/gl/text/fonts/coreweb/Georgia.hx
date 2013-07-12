@@ -506,7 +506,7 @@ class Georgia extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      6.348,    -36.376,     57.958,    -18.554
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

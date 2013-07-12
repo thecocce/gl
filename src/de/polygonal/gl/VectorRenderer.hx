@@ -127,7 +127,7 @@ class VectorRenderer
 	}
 	
 	/** Deallocates alchemy memory. */
-	public function free():Void
+	public function free()
 	{
 		#if flash
 		flush(null);
@@ -156,7 +156,7 @@ class VectorRenderer
 	 * drawing anything.
 	 */
 	#if flash10
-	public function flush(graphics:Graphics):Void
+	public function flush(graphics:Graphics)
 	{
 		_flushCache();
 		
@@ -174,7 +174,7 @@ class VectorRenderer
 	}
 	#elseif js
 	var _context:Dynamic;
-	public function flush(context:Dynamic):Void
+	public function flush(context:Dynamic)
 	{
 		for (i in _buffer)
 		{
@@ -240,7 +240,7 @@ class VectorRenderer
 	 * vr.applyLineStyle();
 	 * </pre>
 	 */
-	inline public function applyLineStyle():Void
+	inline public function applyLineStyle()
 	{
 		_flushCache();
 		
@@ -255,7 +255,7 @@ class VectorRenderer
 	 * @param alpha The line alpha [0,1].
 	 * @param thickness The line thickness.
 	 */
-	public function setLineStyle(rgb = 0, alpha = 1., thickness = .0):Void
+	public function setLineStyle(rgb = 0, alpha = 1., thickness = .0)
 	{
 		#if flash
 		style.lineColor = rgb;
@@ -274,7 +274,7 @@ class VectorRenderer
 	 * Wrapper for <i>style.clearStroke()</i>.
 	 * The stroke is immediately cleared by calling <i>applyLineStyle()</i>.
 	 */
-	inline public function clearStroke():Void
+	inline public function clearStroke()
 	{
 		if (!Math.isNaN(style.lineThickness))
 		{
@@ -289,14 +289,14 @@ class VectorRenderer
 	 * @param rgb The fill color.
 	 * @param alpha The fill alpha.
 	 */
-	inline public function setFillColor(?rgb = 0, ?alpha = 1.):Void
+	inline public function setFillColor(?rgb = 0, ?alpha = 1.)
 	{
 		style.fillColor = rgb;
 		style.fillAlpha = alpha;
 	}
 	
 	/** Defines a one-color fill that subsequent calls (to the drawing methods of the VectorRenderer) use when drawing. */
-	inline public function fillStart():Void
+	inline public function fillStart()
 	{
 		#if debug
 		_fill = true;
@@ -314,7 +314,7 @@ class VectorRenderer
 	}
 
 	/** Applies a one-color fill to the previous shapes drawn since the invocation of <i>fillStart()</i>. */
-	inline public function fillEnd():Void
+	inline public function fillEnd()
 	{
 		#if debug
 		D.assert(_fill, "fillStart() was not called");
@@ -333,7 +333,7 @@ class VectorRenderer
 	 * Default is flash.display.GraphicsPathWinding.NON_ZERO;
 	 */
 	#if flash10
-	 inline public function setWinding(x:GraphicsPathWinding):Void
+	 inline public function setWinding(x:GraphicsPathWinding)
 	{
 		_winding = x;
 		_flushCache();
@@ -341,13 +341,13 @@ class VectorRenderer
 	#end
 	
 	/** Moves the 'pen' to <i>p</i>. */
-	inline public function moveTo(p:Vec2):Void
+	inline public function moveTo(p:Vec2)
 	{
 		moveTo2(p.x, p.y);
 	}
 	
 	/** Moves the 'pen' to (<i>x</i>,<i>y</i>). */
-	inline public function moveTo2(x:Float, y:Float):Void
+	inline public function moveTo2(x:Float, y:Float)
 	{
 		var o = _posf(2);
 		_setf(o + (0 << 2), x);
@@ -357,13 +357,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a line segment from the current position to <i>p</i>. */
-	inline public function lineTo(p:Vec2):Void
+	inline public function lineTo(p:Vec2)
 	{
 		lineTo2(p.x, p.y);
 	}
 	
 	/** Draws a line segment from the current position to (<i>x</i>,<i>y</i>). */
-	inline public function lineTo2(x:Float, y:Float):Void
+	inline public function lineTo2(x:Float, y:Float)
 	{
 		var o = _posf(2);
 		_setf(o + (0 << 2), x);
@@ -373,13 +373,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a line segment from <i>a</i> to <i>b</i>. */
-	inline public function line2(a:Vec2, b:Vec2):Void
+	inline public function line2(a:Vec2, b:Vec2)
 	{
 		line4(a.x, a.y, b.x, b.y);
 	}
 	
 	/** Draws a line segment from (<i>ax,ay</i>) to (<i>bx,by</i>). */
-	inline public function line4(ax:Float, ay:Float, bx:Float, by:Float):Void
+	inline public function line4(ax:Float, ay:Float, bx:Float, by:Float)
 	{
 		var o = _posf(4);
 		_setf(o + (0 << 2), ax);
@@ -392,13 +392,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a triangle through the points <i>a</i>, <i>b</i> and <i>c</i>. */
-	inline public function tri3(a:Vec2, b:Vec2, c:Vec2):Void
+	inline public function tri3(a:Vec2, b:Vec2, c:Vec2)
 	{
 		tri6(a.x, a.y, b.x, b.y, c.x, c.y);
 	}
 	
 	/** Draws a triangle through the points (<i>ax,ay</i>), (<i>bx,by</i>) and (<i>cx,cy</i>). */
-	inline public function tri6(ax:Float, ay:Float, bx:Float, by:Float, cx:Float, cy:Float):Void
+	inline public function tri6(ax:Float, ay:Float, bx:Float, by:Float, cx:Float, cy:Float)
 	{
 		var o = _posf(8);
 		_setf(o + (0 << 2), ax);
@@ -417,37 +417,37 @@ class VectorRenderer
 	}
 	
 	/** Draws a square box with center <i>c</i> and half-width extents <i>e</i>. */
-	inline public function box2(c:Vec2, e:Float):Void
+	inline public function box2(c:Vec2, e:Float)
 	{
 		box3(c.x, c.y, e);
 	}
 	
 	/** Draws a square box with center (<i>x,y</i>) and half-width extents <i>e</i>. */
-	inline public function box3(x:Float, y:Float, e:Float):Void
+	inline public function box3(x:Float, y:Float, e:Float)
 	{
 		quad8(x - e, y - e, x + e, y - e, x + e, y + e, x - e, y + e);
 	}
 	
 	/** Draws a rectangle with center <i>c</i> and half-width extents <i>e</i>. */
-	inline public function rect2(c:Vec2, e:Vec2):Void
+	inline public function rect2(c:Vec2, e:Vec2)
 	{
 		rect4(c.x, c.y, e.x, e.y);
 	}
 	
 	/** Draws a rectangle with center (<i>x,y</i>) and half-width extents <i>e</i>. */
-	inline public function rect4(x:Float, y:Float, ex:Float, ey:Float):Void
+	inline public function rect4(x:Float, y:Float, ex:Float, ey:Float)
 	{
 		quad8(x - ex, y - ey, x + ex, y - ey, x + ex, y + ey, x - ex, y + ey);
 	}
 
 	/** Draws a quad through the points <i>a, b, c</i> and <i>d</i>. */
-	inline public function quad4(a:Vec2, b:Vec2, c:Vec2, d:Vec2):Void
+	inline public function quad4(a:Vec2, b:Vec2, c:Vec2, d:Vec2)
 	{
 		quad8(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y);
 	}
 	
 	/** Draws a quad through the points (<i>ax,ay</i>), (<i>bx,by</i>), (<i>cx,cy</i>) and (<i>dx,dy</i>). */
-	inline public function quad8(ax:Float, ay:Float, bx:Float, by:Float, cx:Float, cy:Float, dx:Float, dy:Float):Void
+	inline public function quad8(ax:Float, ay:Float, bx:Float, by:Float, cx:Float, cy:Float, dx:Float, dy:Float)
 	{
 		var o = _posf(10);
 		_setf(o + (0 << 2), ax);
@@ -486,19 +486,19 @@ class VectorRenderer
 	}
 	
 	/** Draws a circle. */
-	inline public function circle(s:Sphere2):Void
+	inline public function circle(s:Sphere2)
 	{
 		circle2(s.c, s.r);
 	}
 	
 	/** Draws a circle with center <i>c</i> and radius <i>r</i>. */
-	inline public function circle2(c:Vec2, r:Float):Void
+	inline public function circle2(c:Vec2, r:Float)
 	{
 		circle3(c.x, c.y, r);
 	}
 	
 	/** Draws a circle with center (<i>x,y</i>) and radius <i>r</i>. */
-	public function circle3(x:Float, y:Float, r:Float):Void
+	public function circle3(x:Float, y:Float, r:Float)
 	{
 		var t0 = r * .2928932188;
 		var t1 = -t0;
@@ -555,13 +555,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a circle segment with center <i>c</i>, radius <i>r</i>, from <i>angle0</i> to <i>angle1</i>. */
-	inline public function arc4(c:Vec2, angle0:Float, angle1:Float, r:Float, ?resume = false):Void
+	inline public function arc4(c:Vec2, angle0:Float, angle1:Float, r:Float, ?resume = false)
 	{
 		arc5(c.x, c.y, angle0, angle1, r, resume);
 	}
 	
 	/** Draws a circle segment centered at (<i>x</i>,<i>y</i>), radius <i>r</i>, from <i>angle0</i> to <i>angle1</i>. */
-	inline public function arc5(x:Float, y:Float, angle0:Float, angle1:Float, r:Float, ?resume = false):Void
+	inline public function arc5(x:Float, y:Float, angle0:Float, angle1:Float, r:Float, ?resume = false)
 	{
 		var a0;
 		var a1;
@@ -643,13 +643,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a wedge with center <i>c</i>, radius <i>r</i>, from <i>angle0</i> to <i>angle1</i>. */
-	inline public function wedge4(c:Vec2, angle0:Float, angle1:Float, r:Float):Void
+	inline public function wedge4(c:Vec2, angle0:Float, angle1:Float, r:Float)
 	{
 		wedge5(c.x, c.y, angle0, angle1, r);
 	}
 	
 	/** Draws a wedge with centered at (<i>x</i>,<i>y</i>),  radius <i>r</i>, from <i>angle0</i> to <i>angle1</i>. */
-	inline public function wedge5(x:Float, y:Float, angle0:Float, angle1:Float, r:Float):Void
+	inline public function wedge5(x:Float, y:Float, angle0:Float, angle1:Float, r:Float)
 	{
 		var a0;
 		var a1;
@@ -735,13 +735,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a swept-sphere line (SLL) from <i>a</i> to <i>b</i> with radius <i>r</i> */
-	inline public function ssl3(a:Vec2, b:Vec2, r:Float):Void
+	inline public function ssl3(a:Vec2, b:Vec2, r:Float)
 	{
 		ssl5(a.x, a.y, b.x, b.y, r);
 	}
 	
 	/** Draws a swept-sphere line (SLL) from (<i>ax</i>,<i>ay</i>) to (<i>bx</i>,<i>by</i>) with radius <i>r</i> */
-	inline public function ssl5(ax:Float, ay:Float, bx:Float, by:Float, r:Float):Void
+	inline public function ssl5(ax:Float, ay:Float, bx:Float, by:Float, r:Float)
 	{
 		var dx = bx - ax;
 		var dy = by - ay;
@@ -763,13 +763,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a swept-sphere rectangle (SSR) with center <i>c</i>, half-width extents <i>e</i> and radius <i>r</i>. */
-	inline public function ssr3(c:Vec2, e:Vec2, r:Float):Void
+	inline public function ssr3(c:Vec2, e:Vec2, r:Float)
 	{
 		ssr5(c.x, c.y, e.x, e.y, r);
 	}
 	
 	/** Draws a swept-sphere rectangle (SSR) with center (<i>cx</i>,<i>cy</i>), half-width extents (<i>ex</i>,<i>ey</i>) and radius <i>r</i>. */
-	inline public function ssr5(cx:Float, cy:Float, ex:Float, ey:Float, r:Float):Void
+	inline public function ssr5(cx:Float, cy:Float, ex:Float, ey:Float, r:Float)
 	{
 		moveTo2(cx - ex, cy - ey - r);
 		lineTo2(cx + ex, cy - ey - r);
@@ -783,7 +783,7 @@ class VectorRenderer
 	}
 	
 	/** Draws a swept-sphere polygon (SSP) through the points specified in <i>vertexList</i> and with radius <i>r</i>. */
-	inline public function ssp(vertexList:Array<Vec2>, r:Float):Void
+	inline public function ssp(vertexList:Array<Vec2>, r:Float)
 	{
 		var k = vertexList.length;
 		
@@ -824,13 +824,13 @@ class VectorRenderer
 	 * If <i>threshold</i> is positive, the curve is subdivided until the <i>threshold</i> criteria
 	 * is met.
 	 **/
-	inline public function bezier4(a:Vec2, b:Vec2, c:Vec2, d:Vec2, threshold:Float):Void
+	inline public function bezier4(a:Vec2, b:Vec2, c:Vec2, d:Vec2, threshold:Float)
 	{
 		bezier8(a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y, threshold);
 	}
 	
 	/** Draws a cubic b&eacute;zier curve defined by <i>a=(x0,y0)</i>, <i>b=(x1,y1)</i>, <i>c=(x2,y2)</i> and <i>d=(x3,y3)</i>. */
-	public function bezier8(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, ?threshold = .01):Void
+	public function bezier8(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, ?threshold = .01)
 	{
 		if (threshold <= .0)
 		{
@@ -1014,19 +1014,19 @@ class VectorRenderer
 	}
 	
 	/** Draws an axis-aligned bounding box. */
-	inline public function aabb(a:AABB2):Void
+	inline public function aabb(a:AABB2)
 	{
 		if (!a.isEmpty()) aabbMinMax4(a.minX, a.minY, a.maxX, a.maxY);
 	}
 	
 	/** Draws an axis-aligned bounding box using a <i>min</i>-<i>max</i> representation. */
-	inline public function aabbMinMax2(min:Vec2, max:Vec2):Void
+	inline public function aabbMinMax2(min:Vec2, max:Vec2)
 	{
 		aabbMinMax4(min.x, min.y, max.x, max.y);
 	}
 	
 	/** Draws an axis-aligned bounding box spanning from (<i>minX</i>,<i>minY</i>) to (<i>maxX</i>,<i>maxY</i>). */
-	inline public function aabbMinMax4(minX:Float, minY:Float, maxX:Float, maxY:Float):Void
+	inline public function aabbMinMax4(minX:Float, minY:Float, maxX:Float, maxY:Float)
 	{
 		var o = _posf(10);
 		_setf(o + (0 << 2), minX);
@@ -1048,13 +1048,13 @@ class VectorRenderer
 	}
 	
 	/** Draws an axis-aligned bounding box using the center <i>c</i> and half-width extents <i>e</i>. */
-	inline public function aabbCenExt2(c:Vec2, e:Vec2):Void
+	inline public function aabbCenExt2(c:Vec2, e:Vec2)
 	{
 		aabbCenExt4(c.x, c.y, e.x, e.y);
 	}
 	
 	/** Draws an axis-aligned bounding box centered at (<i>cx</i>,<i>cy</i>) and with half-width extents (<i>ex</i>,<i>ey</i>). */
-	inline public function aabbCenExt4(cx:Float, cy:Float, ex:Float, ey:Float):Void
+	inline public function aabbCenExt4(cx:Float, cy:Float, ex:Float, ey:Float)
 	{
 		var t0 = cx - ex;
 		var t1 = cx + ex;
@@ -1081,19 +1081,19 @@ class VectorRenderer
 	}
 	
 	/** Draws an oriented bounding box. */
-	inline public function obb(o:OBB2):Void
+	inline public function obb(o:OBB2)
 	{
 		obbCenExtAngle3(o.c, o.e, o.R.getAngle());
 	}
 	
 	/** Draws an oriented bounding box centered at <i>c</i>, with half-width extents <i>e</i> and angle <i>r</i>. */
-	inline public function obbCenExtAngle3(c:Vec2, e:Vec2, r:Float):Void
+	inline public function obbCenExtAngle3(c:Vec2, e:Vec2, r:Float)
 	{
 		obbCenExtAngle5(c.x, c.y, e.x, e.y, r);
 	}
 	
 	/** Draws an oriented bounding box centered at (<i>cx</i>,<i>cy</i>), with half-width extents (<i>ex</i>,<i>ey</i>) and angle <i>r</i>. */
-	inline public function obbCenExtAngle5(cx:Float, cy:Float, ex:Float, ey:Float, r:Float):Void
+	inline public function obbCenExtAngle5(cx:Float, cy:Float, ex:Float, ey:Float, r:Float)
 	{
 		var cos = Math.cos(r);
 		var sin = Math.sin(r);
@@ -1127,13 +1127,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a skewed cross (x) at position <i>p</i> and radius <i>r</i>. */
-	inline public function crossSkewed2(p:Vec2, r:Float):Void
+	inline public function crossSkewed2(p:Vec2, r:Float)
 	{
 		crossSkewed3(p.x, p.y, r);
 	}
 	
 	/** Draws a skewed cross (x) at (<i>x</i>,<i>y</i>) and radius <i>r</i>. */
-	inline public function crossSkewed3(x:Float, y:Float, r:Float):Void
+	inline public function crossSkewed3(x:Float, y:Float, r:Float)
 	{
 		var o = _posf(8);
 		_setf(o + (0 << 2), x - r);
@@ -1152,13 +1152,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a crosshair at position <i>p</i> and radius <i>r</i>. */
-	inline public function crossHair2(v:Vec2, r:Float, skew = false):Void
+	inline public function crossHair2(v:Vec2, r:Float, skew = false)
 	{
 		crossHair3(v.x, v.y, r, skew);
 	}
 	
 	/** Draws a crosshair at (<i>x</i>,<i>y</i>) and radius <i>r</i>. */
-	inline public function crossHair3(x:Float, y:Float, r:Float, skew = false):Void
+	inline public function crossHair3(x:Float, y:Float, r:Float, skew = false)
 	{
 		var o = _posf(10);
 		_setf(o + (0 << 2), x - r);
@@ -1183,7 +1183,7 @@ class VectorRenderer
 	 * Draws a poly.
 	 * @param close Draws a closed shape by connecting the last vertex with the first vertex.
 	 */
-	public function poly(poly:Poly2, ?close = false):Void
+	public function poly(poly:Poly2, ?close = false)
 	{
 		var k = poly.vertexCount;
 		var p = _posf((k << 1) + (close ? 2 : 0));
@@ -1221,7 +1221,7 @@ class VectorRenderer
 	 * @param close Draws a closed shape by connecting the last vertex with the first vertex.
 	 * @param maxCount The total number of vertices to use.
 	 */
-	public function polyLineScalar(vertexList:Array<Float>, ?close = false, ?maxCount = -1):Void
+	public function polyLineScalar(vertexList:Array<Float>, ?close = false, ?maxCount = -1)
 	{
 		var k = (maxCount != -1) ? maxCount : Std.int(vertexList.length);
 		
@@ -1270,7 +1270,7 @@ class VectorRenderer
 	 * @param close Draws a closed shape by connecting the last vertex with the first vertex.
 	 * @param maxCount The total number of vertices to use.
 	 */
-	public function polyLineVector(vertexList:Array<Vec2>, ?close = false, ?maxCount = -1):Void
+	public function polyLineVector(vertexList:Array<Vec2>, ?close = false, ?maxCount = -1)
 	{
 		var k = (maxCount != -1) ? maxCount : Std.int(vertexList.length);
 		
@@ -1329,7 +1329,7 @@ class VectorRenderer
 	 * Draws an arrow from <i>a</i> to <i>b</i>.
 	 * @param size The size of the arrowhead.
 	 */
-	inline public function arrowLine3(a:Vec2, b:Vec2, size:Float):Void
+	inline public function arrowLine3(a:Vec2, b:Vec2, size:Float)
 	{
 		arrowLine5(a.x, a.y, b.x, b.y, size);
 	}
@@ -1338,7 +1338,7 @@ class VectorRenderer
 	 * Draws an arrow from (<i>ax</i>,<i>ay</i>) to (<i>bx</i>,<i>by</i>).
 	 * @param size The size of the arrowhead.
 	 */
-	inline public function arrowLine5(ax:Float, ay:Float, bx:Float, by:Float, size:Float):Void
+	inline public function arrowLine5(ax:Float, ay:Float, bx:Float, by:Float, size:Float)
 	{
 		var dx = bx - ax;
 		var dy = by - ay;
@@ -1388,7 +1388,7 @@ class VectorRenderer
 	 * of <i>mag</i>.
 	 * @param size The size of the arrowhead.
 	 */
-	inline public function arrowRay4(p:Vec2, d:Vec2, mag:Float, size:Float):Void
+	inline public function arrowRay4(p:Vec2, d:Vec2, mag:Float, size:Float)
 	{
 		arrowRay6(p.x, p.y, d.x, d.y, mag, size);
 	}
@@ -1398,7 +1398,7 @@ class VectorRenderer
 	 * and with a magnitude of <i>mag</i>.
 	 * @param size The size of the arrowhead.
 	 */
-	inline public function arrowRay6(x:Float, y:Float, dx:Float, dy:Float, mag:Float, size:Float):Void
+	inline public function arrowRay6(x:Float, y:Float, dx:Float, dy:Float, mag:Float, size:Float)
 	{
 		mag = mag.fabs();
 		size = size.fabs();
@@ -1484,7 +1484,7 @@ class VectorRenderer
 	/**
 	 * Draws a grid into the area specified by <i>bound</i> with a resolution of <i>res</i>.
 	 */
-	inline public function grid3(res:Float, bound:AABB2, cap:Bool):Void
+	inline public function grid3(res:Float, bound:AABB2, cap:Bool)
 	{
 		grid6(res, bound.minX, bound.minY, bound.maxX, bound.maxY, cap);
 	}
@@ -1493,7 +1493,7 @@ class VectorRenderer
 	 * Draws a grid into the area specified from (<i><i>minX</i></i>,<i><i>minY</i></i>) to
 	 * (<i><i>maxX</i></i>,<i><i>maxY</i></i>) with a resolution of <i>res</i>.
 	 */
-	inline public function grid6(res:Float, minX:Float, minY:Float, maxX:Float, maxY:Float, cap:Bool):Void
+	inline public function grid6(res:Float, minX:Float, minY:Float, maxX:Float, maxY:Float, cap:Bool)
 	{
 		var t;
 		var j = cap ? 0 : 1;
@@ -1535,18 +1535,18 @@ class VectorRenderer
 	 * @param normalLength The length of the plane normal.
 	 * @param size The plane normal's arrowhead size.
 	 */
-	inline public function plane4(p:Plane2, bound:AABB2, normalLength:Float, normalSize:Float):Void
+	inline public function plane4(p:Plane2, bound:AABB2, normalLength:Float, normalSize:Float)
 	{
 		planeThroughPoint10(p.n.x * p.d, p.n.y * p.d, p.n.x, p.n.y, bound.minX, bound.minY, bound.maxX, bound.maxY, normalLength, normalSize);
 	}
 	
-	inline public function planeThroughPoint5(p:Vec2, n:Vec2, bound:AABB2, normalLength:Float, normalSize:Float):Void
+	inline public function planeThroughPoint5(p:Vec2, n:Vec2, bound:AABB2, normalLength:Float, normalSize:Float)
 	{
 		planeThroughPoint10(p.x, p.y, n.x, n.y, bound.minX, bound.minY, bound.maxX, bound.maxY, normalLength, normalSize);
 	}
 	
 	inline public function planeThroughPoint10(px:Float, py:Float, nx:Float, ny:Float,
-		minX:Float, minY:Float, maxX:Float, maxY:Float, normalLength:Float, normalSize:Float):Void
+		minX:Float, minY:Float, maxX:Float, maxY:Float, normalLength:Float, normalSize:Float)
 	{
 		var dx = ny;
 		var dy =-nx;
@@ -1597,13 +1597,13 @@ class VectorRenderer
 	}
 	
 	/** Draws a dashed line from <i>a</i> to <i>b</i>. */
-	public function dashedLine2(a:Vec2, b:Vec2, ?dashSize = 2., ?gapSize = 2.):Void
+	public function dashedLine2(a:Vec2, b:Vec2, ?dashSize = 2., ?gapSize = 2.)
 	{
 		dashedLine4(a.x, a.y, b.x, b.y, dashSize, gapSize);
 	}
 	
 	/** Draws a dashed line from <i>a</i> to <i>b</i>. */
-	public function dashedLine4(ax:Float, ay:Float, bx:Float, by:Float, ?dashSize = 2., ?gapSize = 2.):Void
+	public function dashedLine4(ax:Float, ay:Float, bx:Float, by:Float, ?dashSize = 2., ?gapSize = 2.)
 	{
 		var dx = bx - ax;
 		var dy = by - ay;
@@ -1694,7 +1694,7 @@ class VectorRenderer
 	}
 	#end
 	
-	function _flushCache():Void
+	function _flushCache()
 	{
 		#if flash
 		if (_ci > 0)
@@ -1762,8 +1762,7 @@ class VectorRenderer
 	inline function _posf(n:Int):Int
 	{
 		#if debug
-		D.assert(_di + n < _db.size,
-			de.polygonal.core.fmt.Sprintf.format("alchemy cache too small (floats req./rem./max.: %d/%d/%d ", [n, _db.size - _di, _db.size]));
+		D.assert(_di + n < _db.size, Printf.format("alchemy cache too small (floats req./rem./max.: %d/%d/%d ", [n, _db.size - _di, _db.size]));
 		#end
 		var addr = _db.getAddr(_di);
 		
@@ -1791,7 +1790,7 @@ class VectorRenderer
 	{
 		#if debug
 		D.assert(_ci + n < _cb.size,
-			de.polygonal.core.fmt.Sprintf.format("alchemy cache too small (bytes req./rem./max.: %d/%d/%d ", [n, _cb.size - _ci, _cb.size]));
+			Printf.format("alchemy cache too small (bytes req./rem./max.: %d/%d/%d ", [n, _cb.size - _ci, _cb.size]));
 		#end
 		
 		if (!_fRequested)
@@ -1871,7 +1870,7 @@ private class Pool<T>
 		}
 	}
 	
-	public function free():Void
+	public function free()
 	{
 		_pool.free();
 		if (_allocatedIds != null) _allocatedIds.free();
@@ -1894,7 +1893,7 @@ private class Pool<T>
 		}
 	}
 	
-	inline public function fill():Void
+	inline public function fill()
 	{
 		for (i in 0..._allocatedCount)
 			_pool.put(_allocatedIds.get(i));

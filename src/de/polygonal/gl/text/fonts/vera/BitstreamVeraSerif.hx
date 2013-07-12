@@ -338,7 +338,7 @@ class BitstreamVeraSerif extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,     10.596,    -39.404,     73.192,    -23.291
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

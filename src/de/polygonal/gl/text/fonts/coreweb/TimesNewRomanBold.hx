@@ -444,7 +444,7 @@ class TimesNewRomanBold extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      0.586,    -34.667,     53.759,    -18.847
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;	
 		switch (charCode)

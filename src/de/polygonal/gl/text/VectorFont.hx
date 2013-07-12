@@ -30,14 +30,13 @@
 package de.polygonal.gl.text;
 
 import de.polygonal.core.fmt.ASCII;
-import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.util.Assert;
 import de.polygonal.gl.VectorRenderer;
 import de.polygonal.motor.geom.primitive.AABB2;
 
 #if !font_inline
 import de.polygonal.gl.text.util.ByteArrayHandler;
-import de.polygonal.core.io.Base64;
+import de.polygonal.core.codec.Base64;
 #end
 
 /**
@@ -45,11 +44,11 @@ import de.polygonal.core.io.Base64;
  */
 class VectorFont
 {
-	static var _SharedData:Hash<VectorFontData> = null;
+	static var _SharedData:haxe.ds.StringMap<VectorFontData> = null;
 	public static function GetSharedData()
 	{
 		if (_SharedData == null)
-			_SharedData = new Hash();
+			_SharedData = new haxe.ds.StringMap();
 		return _SharedData;
 	}
 	
@@ -94,7 +93,7 @@ class VectorFont
 		tabSize = 4;
 	}
 	#else
-	static var _bytes = new Hash<ByteArrayHandler>();
+	static var _bytes = new haxe.ds.StringMap<ByteArrayHandler>();
 	
 	var _cmd:Array<flash.Vector<Int>>;
 	var _pos:Array<flash.Vector<Float>>;
@@ -123,7 +122,7 @@ class VectorFont
 	#end
 	
 	/** Nullifies references so all used resources can be garbage collected. */
-	public function free():Void
+	public function free()
 	{
 		var className = Type.getClassName(Type.getClass(this));
 		var data = GetSharedData().get(className);
@@ -145,25 +144,29 @@ class VectorFont
 		_glyphRange = null;
 		
 		#if !font_inline
-		var _cmd = null;
-		var _pos = null;
+		_cmd = null;
+		_pos = null;
 		#end
 	}
 	
 	/** Assigns a renderer that handles all drawing commands. */
-	public function setRenderer(vr:VectorRenderer):Void
+	public function setRenderer(vr:VectorRenderer)
 	{
 		_vr = vr;
 	}
 	
 	/** Defines the font size. A value of 100 equals 72pt or one inch. */
-	public var size(_gsize, _ssize):Float;
-	inline function _gsize():Float { return _size; }
-	inline function _ssize(x:Float):Float
+	public var size(get_size, set_size):Float;
+	inline function get_size():Float
+	{
+		return _size;
+	}
+	inline function set_size(x:Float):Float
 	{
 		_scale = (_size = x) / 100;
 		return x;
 	}
+	
 	
 	/**
 	 * Draws <i>text</i> to the screen at the position <i>x</i>,<i>y</i>, which is the lower-left
@@ -187,7 +190,7 @@ class VectorFont
 	public function writeCharSet(x:Float, y:Float, maxWidth:Float):AABB2
 	{
 		var name = Type.getClassName(Type.getClass(this));
-		var text = name.substr(name.lastIndexOf('.') + 1) + "\n";
+		var text = name.substr(name.lastIndexOf(".") + 1) + "\n";
 		
 		var s = text;
 		var c = 0;
@@ -201,7 +204,7 @@ class VectorFont
 			if (getBound(s, x, y, false, true, new AABB2()).intervalX > maxWidth)
 			{
 				text += "\n";
-				s = '';
+				s = "";
 			}
 		}
 		
@@ -241,7 +244,7 @@ class VectorFont
 		return null;
 	}
 	
-	function _setGlyphBounds(input:Array<Float>):Void
+	function _setGlyphBounds(input:Array<Float>)
 	{
 		var className = Type.getClassName(Type.getClass(this));
 		var data = GetSharedData().get(className);
@@ -287,12 +290,12 @@ class VectorFont
 	}
 	
 	#if font_inline
-	function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		throw "override for implementation";
 	}
 	#else
-	function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		#if debug
 		D.assert(_vr != null, "no VectorRenderer assigned");
@@ -344,7 +347,7 @@ class VectorFont
 		if (c < _glyphRange.length)
 		{
 			if (!_glyphRange[c])
-				throw Sprintf.format("unsupported character %d [%#x]", [c, c]);
+				throw Printf.format("unsupported character %d [%#x]", [c, c]);
 		}
 		return c;
 	}
@@ -362,7 +365,7 @@ class VectorFont
 		return (ipart == fpart) ? (x + s) : (ipart * s);
 	}
 	
-	inline function _bez(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, threshold:Float):Void
+	inline function _bez(x0:Float, y0:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float, threshold:Float)
 	{
 		_vr.bezier8(x0, y0, x1, y1, x2, y2, x3, y3, threshold);
 	}
@@ -417,7 +420,7 @@ private class VectorFontData
 	
 	public function new() {}
 	
-	public function free():Void
+	public function free()
 	{
 		for (i in 0...glyphBounds.length)
 			glyphBounds[i] = null;

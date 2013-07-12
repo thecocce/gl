@@ -186,7 +186,7 @@ class CodingFontTobi extends de.polygonal.gl.text.MonospaceVectorFont
 		 126,      6.250,    -37.499,     43.749,    -12.500
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

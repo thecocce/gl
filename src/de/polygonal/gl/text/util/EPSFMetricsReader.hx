@@ -29,7 +29,6 @@
  */
 package de.polygonal.gl.text.util;
 
-import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.math.Vec2;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.core.util.Assert;
@@ -115,7 +114,7 @@ class EPSFMetricsReader
 	
 	var _index:Int;
 	
-	function _readMet(source:String):Void
+	function _readMet(source:String)
 	{
 		emsquare = _readSignedInteger(source);
 		ascent   = _readSignedInteger(source);
@@ -160,7 +159,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _scanMetrics(s:String, queue:LinkedQueue<Token>):Void
+	function _scanMetrics(s:String, queue:LinkedQueue<Token>)
 	{
 		_index = 0;
 		
@@ -173,7 +172,7 @@ class EPSFMetricsReader
 			var char = s.charAt(_index);
 			if (code <= ASCII.SPACE)
 			{
-				if (char == ' ')
+				if (char == " ")
 				{
 					if (!paren)
 					{
@@ -190,7 +189,7 @@ class EPSFMetricsReader
 			
 			switch (char)
 			{
-				case 'w':
+				case "w":
 				
 				if (s.charAt(_index + 1) == "i")
 				{
@@ -198,7 +197,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case 'k':
+				case "k":
 				
 				if (s.charAt(_index + 1) == "e")
 				{
@@ -206,7 +205,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case '\\':
+				case "\\":
 				
 				if (paren)
 				{
@@ -220,7 +219,7 @@ class EPSFMetricsReader
 					}
 				}
 				
-				case '(':
+				case "(":
 				
 				if (escape)
 				{
@@ -238,7 +237,7 @@ class EPSFMetricsReader
 					continue;
 				}
 				
-				case ')':
+				case ")":
 				
 				if (escape)
 				{
@@ -260,7 +259,7 @@ class EPSFMetricsReader
 			}
 			else
 			{
-				var sign = (s.charAt(_index) == '-');
+				var sign = (s.charAt(_index) == "-");
 				if ((code >= ASCII.ZERO && code <= ASCII.NINE) || sign)
 				{
 					token.type = TokenType.INT;
@@ -281,7 +280,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseSpacing(source:LinkedQueue<Token>):Void
+	function _parseSpacing(source:LinkedQueue<Token>)
 	{
 		spacingValues = new Array<Int>();
 		
@@ -316,7 +315,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseKerning(source:LinkedQueue<Token>):Void
+	function _parseKerning(source:LinkedQueue<Token>)
 	{
 		kerningPairs = new Array<KernInfo>();
 		
@@ -365,7 +364,7 @@ class EPSFMetricsReader
 	var _xPenOffset:Float;
 	var _yPenOffset:Float;
 	
-	function _readEps(source:String):Void
+	function _readEps(source:String)
 	{
 		glyphBounds = new Array<AABB2>();
 		_maxHeight = -1;
@@ -394,13 +393,13 @@ class EPSFMetricsReader
 	}
 	
 	/** Nullifies references so all used resources can be garbage collected. */
-	public function free():Void
+	public function free()
 	{
 		_vr.free();
 		_canvas.graphics.clear();
 	}
 	
-	function _scanEPSF(s:String, queue:LinkedQueue<Token>):Void
+	function _scanEPSF(s:String, queue:LinkedQueue<Token>)
 	{
 		_index = 0;
 		while (_index < s.length)
@@ -409,22 +408,22 @@ class EPSFMetricsReader
 			var c = s.charAt(_index);
 			switch (c)
 			{
-				case '%':
+				case "%":
 				
-				while (c == '%') c = s.charAt(++_index);
-				if (c == 'T')
+				while (c == "%") c = s.charAt(++_index);
+				if (c == "T")
 				{
 					//%%Trailer
 					t.type = VOID;
 					return;
 				}
 				else
-				if (c == '[')
+				if (c == "[")
 				{
 					//%%[Char name=], Char number, x offset, y offset, x width, y width, unicode value
 					//%%Note:exclam=33 9 620 34.729 0 33
-					while (c != ':') c = s.charAt(++_index);
-					while (c != '=') c = s.charAt(++_index);
+					while (c != ":") c = s.charAt(++_index);
+					while (c != "=") c = s.charAt(++_index);
 					_index++;
 					
 					t.type = CHAR_INFO;
@@ -437,32 +436,32 @@ class EPSFMetricsReader
 					t.charInfo.unicodeValue = _readSignedInteger(s);
 				}
 				
-				case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-':
+				case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-":
 				
 				t.float = _readFloat(s);
 				t.type = FLOAT;
 				
-				case 'm':
+				case "m":
 				
 				t.type = OPERATOR;
 				t.operator = MOVE_TO;
 				
-				case 'c':
+				case "c":
 				
 				t.type = OPERATOR;
 				t.operator = CURVE_TO;
 				
-				case 'l':
+				case "l":
 				
 				t.type = OPERATOR;
 				t.operator = LINE_TO;
 				
-				case 's':
+				case "s":
 				
 				t.type = OPERATOR;
 				t.operator = STROKE;
 				
-				case 'S':
+				case "S":
 				
 				t.type = OPERATOR;
 				t.operator = STROKE_CLOSE;
@@ -474,7 +473,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseEPSF(source:LinkedQueue<Token>):Void
+	function _parseEPSF(source:LinkedQueue<Token>)
 	{
 		_vr.setLineStyle(0, 0.5, 0);
 		_vr.crossHair3(0, 0, 20);
@@ -526,7 +525,7 @@ class EPSFMetricsReader
 		{
 			if (!foundGlyphs[i])
 			{
-				trace(Sprintf.format("char %d is missing", [i]));
+				trace(Printf.format("char %d is missing", [i]));
 				charCodeRange[i] = false;
 			}
 		}
@@ -534,7 +533,7 @@ class EPSFMetricsReader
 		_vr.flush(_canvas.graphics);
 	}
 	
-	function _flush(buffer:LinkedQueue<Token>, output:LinkedQueue<Dynamic>):Void
+	function _flush(buffer:LinkedQueue<Token>, output:LinkedQueue<Dynamic>)
 	{
 		_vr.setLineStyle(0, 1, 0);
 		
@@ -606,14 +605,14 @@ class EPSFMetricsReader
 						x = p.x;
 						y = p.y;
 						
-						output.enqueue('m');
+						output.enqueue("m");
 						output.enqueue(x);
 						output.enqueue(y);
 						
 						
 						_drawMoveTo(x, y, c);
 						
-						//drawIndex(x, y, 'm' + c);
+						//drawIndex(x, y, "m" + c);
 						c++;
 						
 					case LINE_TO:
@@ -631,7 +630,7 @@ class EPSFMetricsReader
 						x = p.x;
 						y = p.y;
 						
-						output.enqueue('l');
+						output.enqueue("l");
 						output.enqueue(x);
 						output.enqueue(y);
 						
@@ -639,7 +638,7 @@ class EPSFMetricsReader
 						
 						_drawLineTo(x, y, c);
 						
-						//drawIndex(x, y, 'l' + c);
+						//drawIndex(x, y, "l" + c);
 						c++;
 						
 					case CURVE_TO:
@@ -686,7 +685,7 @@ class EPSFMetricsReader
 						aabb.addPoint(x1, y1);
 						aabb.addPoint(x, y);
 						
-						output.enqueue('c');
+						output.enqueue("c");
 						output.enqueue(x);
 						output.enqueue(y);
 						output.enqueue(x1);
@@ -698,10 +697,10 @@ class EPSFMetricsReader
 						
 						_drawCurveTo(x, y, x1, y1, x2, y2, x3, y3);
 						
-						//drawIndex(x, y, 'c' + (c + 0));
-						//drawIndex(x, y, 'c' + (c + 1));
-						//drawIndex(x, y, 'c' + (c + 2));
-						//drawIndex(x, y, 'c' + (c + 3));
+						//drawIndex(x, y, "c" + (c + 0));
+						//drawIndex(x, y, "c" + (c + 1));
+						//drawIndex(x, y, "c" + (c + 2));
+						//drawIndex(x, y, "c" + (c + 3));
 						
 						x = x3;
 						y = y3;
@@ -726,7 +725,7 @@ class EPSFMetricsReader
 		_xPenOffset += x;
 	}
 	
-	function _drawMoveTo(x:Float, y:Float, c:Int):Void
+	function _drawMoveTo(x:Float, y:Float, c:Int)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -735,7 +734,7 @@ class EPSFMetricsReader
 		_vr.moveTo2(x, y);
 	}
 	
-	function _drawLineTo(x:Float, y:Float, c:Int):Void
+	function _drawLineTo(x:Float, y:Float, c:Int)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -743,7 +742,7 @@ class EPSFMetricsReader
 		_vr.lineTo2(x, y);
 	}
 	
-	function _drawCurveTo(x:Float, y:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float):Void
+	function _drawCurveTo(x:Float, y:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float)
 	{
 		x  += _xPenOffset;
 		y  += _yPenOffset;
@@ -764,7 +763,7 @@ class EPSFMetricsReader
 		//_vr.crossHair2(x3, y3, 2);
 	}
 	
-	function _drawIndex(x:Float, y:Float, s:String):Void
+	function _drawIndex(x:Float, y:Float, s:String)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -803,7 +802,7 @@ class EPSFMetricsReader
 		}
 		
 		var sign = 1;
-		if (s.charAt(_index) == '-')
+		if (s.charAt(_index) == "-")
 		{
 			sign = -1;
 			_index++;
@@ -869,7 +868,7 @@ class EPSFMetricsReader
 		}
 		
 		var sign = 1;
-		if (s.charAt(_index) == '-')
+		if (s.charAt(_index) == "-")
 		{
 			sign = -1;
 			_index++;
@@ -936,24 +935,24 @@ private class Token
 			
 			case CHAR:
 			
-			return Sprintf.format("CHAR %s[%d]", [char, char.charCodeAt(0)]);
+			return Printf.format("CHAR %s[%d]", [char, char.charCodeAt(0)]);
 			
 			case CHAR_INFO:
 			
-			return Sprintf.format("CHAR_INFO #%d x: %.3f y: %.3f w: %.3f h: %.3f uni %d",
+			return Printf.format("CHAR_INFO #%d x: %.3f y: %.3f w: %.3f h: %.3f uni %d",
 				[charInfo.charNumber, charInfo.xOffset, charInfo.yOffset, charInfo.xWidth, charInfo.yWidth, charInfo.unicodeValue]);
 			
 			case FLOAT:
 			
-			return Sprintf.format("FLOAT %.3f", [float]);
+			return Printf.format("FLOAT %.3f", [float]);
 			
 			case INT:
 			
-			return Sprintf.format("INT %.3f", [int]);
+			return Printf.format("INT %.3f", [int]);
 			
 			case OPERATOR:
 			
-			return Sprintf.format("OPERATOR %s", [operator]);
+			return Printf.format("OPERATOR %s", [operator]);
 		}
 	}
 }
@@ -987,6 +986,6 @@ private class KernInfo
 	
 	public function toString():String
 	{
-		return Sprintf.format("KernInfo a: %d[%s] b: %d[%s] kern: %d", [a, String.fromCharCode(a), b, String.fromCharCode(b), kern]);
+		return Printf.format("KernInfo a: %d[%s] b: %d[%s] kern: %d", [a, String.fromCharCode(a), b, String.fromCharCode(b), kern]);
 	}
 }

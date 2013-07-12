@@ -335,7 +335,7 @@ class VerdanaBold extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      7.666,    -49.169,     79.247,    -15.869
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

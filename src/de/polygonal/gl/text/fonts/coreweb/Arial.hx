@@ -349,7 +349,7 @@ class Arial extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      4.248,    -43.212,     54.198,    -27.197
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

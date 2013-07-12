@@ -31,12 +31,11 @@ package de.polygonal.gl.text.util;
 
 import de.polygonal.core.event.IObserver;
 import de.polygonal.core.event.IObservable;
-import de.polygonal.core.fmt.Sprintf;
-import de.polygonal.core.io.Resource;
-import de.polygonal.core.io.ResourceEvent;
-import de.polygonal.core.io.ResourceLoader;
-import de.polygonal.core.io.ResourceLoaderEvent;
-import de.polygonal.core.io.ResourceType;
+import de.polygonal.native.flash.io.Resource;
+import de.polygonal.native.flash.io.ResourceEvent;
+import de.polygonal.native.flash.io.ResourceLoader;
+import de.polygonal.native.flash.io.ResourceLoaderEvent;
+import de.polygonal.native.flash.io.ResourceType;
 import de.polygonal.core.util.Assert;
 import flash.events.Event;
 import flash.Lib;
@@ -71,7 +70,7 @@ class EPSConvert implements IObserver
 	}
 	
 	/** Nullifies references so all used resources can be garbage collected. */
-	public function free():Void
+	public function free()
 	{
 		if (_reader != null) _reader.free();
 	}
@@ -84,7 +83,7 @@ class EPSConvert implements IObserver
 	 * <pre>
 	 * class Main
 	 * {
-	 *   public static function main():Void
+	 *   public static function main()
 	 *   {
 	 *     de.polygonal.ds.mem.MemoryManager.allocate(10240);
 	 *     var converter = new de.polygonal.gl.text.util.EPSConvert();
@@ -93,7 +92,7 @@ class EPSConvert implements IObserver
 	 * }
 	 * </pre>
 	 */
-	public function select():Void
+	public function select()
 	{
 		_fileRefList = new FileReferenceList();
 		_fileRefList.addEventListener(Event.SELECT, _onSelect);
@@ -112,7 +111,7 @@ class EPSConvert implements IObserver
 	 * <pre>
 	 * class Main
 	 * {
-	 *   public static function main():Void
+	 *   public static function main()
 	 *   {
 	 *     var onComplete = function() { trace("batch conversion complete"); }
 	 *
@@ -133,25 +132,25 @@ class EPSConvert implements IObserver
 	}
 	
 	/** Loads and converts each enqueued file. */
-	public function run():Void
+	public function run()
 	{
 		_loader.start();
 	}
 	
-	public function update(type:Int, source:IObservable, userData:Dynamic):Void
+	public function onUpdate(type:Int, source:IObservable, userData:Dynamic)
 	{
 		if (type == ResourceEvent.COMPLETE)
 		{
 			var res:Resource = userData;
 			if (res.userData == "met")
 			{
-				trace(Sprintf.format("met file %s loaded", [userData.request.url]));
+				trace(Printf.format("met file %s loaded", [userData.request.url]));
 				_metData = userData.content;
 			}
 			else
 			if (res.userData == "eps")
 			{
-				trace(Sprintf.format("eps file %s loaded", [res.request.url]));
+				trace(Printf.format("eps file %s loaded", [res.request.url]));
 				_epsData = res.content;
 				
 				var time = Lib.getTimer();
@@ -173,7 +172,7 @@ class EPSConvert implements IObserver
 				_massSaver.add(stringData, stringName);
 				//_massSaver.add(binaryData, binaryName);
 				
-				Sprintf.format("done in %.3f seconds", [(Lib.getTimer() - time) / 1000]);
+				Printf.format("done in %.3f seconds", [(Lib.getTimer() - time) / 1000]);
 			}
 		}
 		else
@@ -184,7 +183,7 @@ class EPSConvert implements IObserver
 		}
 	}
 	
-	function _onSelect(e:Event):Void
+	function _onSelect(e:Event)
 	{
 		var epsIndex = -1;
 		var metIndex = -1;
@@ -208,8 +207,8 @@ class EPSConvert implements IObserver
 	function _getClassName(s:String):String
 	{
 		s = s.substr(0, s.length - 4);
-		s = s.substr(s.indexOf('/') + 1);
-		s = s.split(' ').join('');
+		s = s.substr(s.indexOf("/") + 1);
+		s = s.split(" ").join("");
 		return s;
 	}
 }
@@ -228,13 +227,13 @@ private class MassSaver
 		_completeClosure = onComplete;
 	}
 	
-	public function add(data:Dynamic, url:String):Void
+	public function add(data:Dynamic, url:String)
 	{
 		_data.push(data);
 		_urls.push(url);
 	}
 	
-	public function saveAll():Void
+	public function saveAll()
 	{
 		_fref = new FileReference();
 		_fref.addEventListener(Event.COMPLETE, _onComplete);
@@ -242,7 +241,7 @@ private class MassSaver
 		_fref.save(_data.pop(), _urls.pop());
 	}
 	
-	function _onComplete(e:Event):Void
+	function _onComplete(e:Event)
 	{
 		if (_data.length > 0) _fref.save(_data.pop(), _urls.pop());
 		else

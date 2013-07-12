@@ -463,7 +463,7 @@ class TimesNewRomanBoldItalic extends de.polygonal.gl.text.ProportionalVectorFon
 		 126,      1.904,    -34.667,     55.077,    -18.847
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;	
 		switch (charCode)
