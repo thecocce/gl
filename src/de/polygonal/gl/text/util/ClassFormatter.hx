@@ -29,8 +29,7 @@
  */
 package de.polygonal.gl.text.util;
 
-import de.polygonal.core.io.Base64;
-import de.polygonal.core.fmt.Sprintf;
+import de.polygonal.core.codec.Base64;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.core.util.Assert;
 import de.polygonal.ds.LinkedQueue;
@@ -54,20 +53,20 @@ class ClassFormatter
 		
 		var formattedGlyphData = formatGlyphs();
 		
-		s += _writeLine(Sprintf.format("package de.polygonal.gl.text.fonts;", [_data.name]));
+		s += _writeLine(Printf.format("package de.polygonal.gl.text.fonts;", [_data.name]));
 		s += _writeEmptyLine();
 		s += _writeLine("import de.polygonal.gl.text.VectorFont;");
 		s += _writeEmptyLine();
-		s += _writeLine(Sprintf.format("class %s extends de.polygonal.gl.text.%s", [_data.name, _data.isMonoSpace ? "MonospaceVectorFont" : "ProportionalVectorFont"]));
+		s += _writeLine(Printf.format("class %s extends de.polygonal.gl.text.%s", [_data.name, _data.isMonoSpace ? "MonospaceVectorFont" : "ProportionalVectorFont"]));
 		s += _writeLine("{");
 		
 		var superArgs = '';
 		if (_data.isMonoSpace)
-			superArgs = Sprintf.format("super(%d, %d, %d, %d, %s);", [_data.emsquare, _data.ascent, _data.descent, _data.spacingValues[33], "BOUNDS_TABLE"]);
+			superArgs = Printf.format("super(%d, %d, %d, %d, %s);", [_data.emsquare, _data.ascent, _data.descent, _data.spacingValues[33], "BOUNDS_TABLE"]);
 		else
 		{
 			var kerning = _data.kerningPairs.length == 0 ? 'null' : "KERNING_TABLE";
-			superArgs = Sprintf.format("super(%d, %d, %d, %s, %s, %s);", [_data.emsquare, _data.ascent, _data.descent, "BOUNDS_TABLE", "SPACING_TABLE", kerning]);
+			superArgs = Printf.format("super(%d, %d, %d, %s, %s, %s);", [_data.emsquare, _data.ascent, _data.descent, "BOUNDS_TABLE", "SPACING_TABLE", kerning]);
 		}
 		
 		s += _writeLine("public function new()", 1);
@@ -147,7 +146,7 @@ class ClassFormatter
 			var que:LinkedQueue<Dynamic> = cast _data.glyphData[i].clone(true);
 			if (que == null) continue;
 			
-			trace(Sprintf.format("formatting char code %d", [i]));
+			trace(Printf.format("formatting char code %d", [i]));
 			
 			var valPos = 0;
 			var cmdPos = 0;
@@ -165,26 +164,26 @@ class ClassFormatter
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						valStr += Sprintf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
-						valStr += Sprintf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
-						cmdStr += Sprintf.format("_setb(%s + %2d, 1);\n", ['o', cmdPos++]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
+						cmdStr += Printf.format("_setb(%s + %2d, 1);\n", ['o', cmdPos++]);
 						
 						
 					case 'l':
 						
 						var x = que.dequeue();
 						var y = que.dequeue();
-						valStr += Sprintf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
-						valStr += Sprintf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
-						cmdStr += Sprintf.format("_setb(%s + %2d, 2);\n", ['o', cmdPos++]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), x + %#8.3f * s);\n", ['o', valPos++, x]);
+						valStr += Printf.format("_setf(%s + (%2d << 2), y + %#8.3f * s);\n", ['o', valPos++, y]);
+						cmdStr += Printf.format("_setb(%s + %2d, 2);\n", ['o', cmdPos++]);
 						
 					case 'c':
 						
 						if (valPos > 0)
 						{
-							s += Sprintf.format("o = _posf(%d);\n", [valPos]);
+							s += Printf.format("o = _posf(%d);\n", [valPos]);
 							s += valStr;
-							s += Sprintf.format("o = _posb(%d);\n", [cmdPos]);
+							s += Printf.format("o = _posb(%d);\n", [cmdPos]);
 							s += cmdStr;
 							
 							valStr = '';
@@ -201,28 +200,28 @@ class ClassFormatter
 						var y2 = que.dequeue();
 						var x3 = que.dequeue();
 						var y3 = que.dequeue();
-						s += Sprintf.format("_vr.bezier8(x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s, threshold);\n",
+						s += Printf.format("_vr.bezier8(x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s,x + %#8.3f * s,y + %#8.3f * s, threshold);\n",
 							[x0, y0, x1, y1, x2, y2, x3, y3]);
 				}
 			}
 			
 			if (valPos > 0)
 			{
-				var valOffset = Sprintf.format("o = _posf(%d);\n", [valPos]);
-				var cmdOffset = Sprintf.format("o = _posb(%d);\n", [cmdPos]);
+				var valOffset = Printf.format("o = _posf(%d);\n", [valPos]);
+				var cmdOffset = Printf.format("o = _posb(%d);\n", [cmdPos]);
 				s += valOffset;
 				s += valStr;
 				s += cmdOffset;
 				s += cmdStr;
 			}
 			
-			s = Sprintf.format("\ncase %d:\n\n", [i]) + s;
+			s = Printf.format("\ncase %d:\n\n", [i]) + s;
 			s = _blockIndent(s, 3);
 			formattedOutput += s;
 		}
 		
 		var s = '';
-		s += "\toverride function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void\n";
+		s += "\toverride function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)\n";
 		s += "\t{\n";
 		s += "\t\tvar o = 0;\n";
 		s += "\t\tswitch (charCode)\n";
@@ -257,7 +256,7 @@ class ClassFormatter
 		var i = 0;
 		var k = Std.int(data.length / 5);
 		for (i in 0...k)
-			t.push(Sprintf.format("%4d, %10.3f, %10.3f, %10.3f, %10.3f", data.slice(i * 5, i * 5 + 5)));
+			t.push(Printf.format("%4d, %10.3f, %10.3f, %10.3f, %10.3f", data.slice(i * 5, i * 5 + 5)));
 		
 		return "static var BOUNDS_TABLE:Array<Float> =\n[\n" + _blockIndent( t.join(",\n") + "\n", 1) + "];\n";
 	}
@@ -290,7 +289,7 @@ class ClassFormatter
 		var remainder = k % cols;
 		while (k > remainder)
 		{
-			t.push(Sprintf.format(_repeat(format, cols, ", "), data.slice(i * cols, i * cols + cols)));
+			t.push(Printf.format(_repeat(format, cols, ", "), data.slice(i * cols, i * cols + cols)));
 			i++;
 			k -= cols;
 		}
@@ -301,11 +300,11 @@ class ClassFormatter
 			var s = '';
 			if (remainder > 1)
 			{
-				s = Sprintf.format(_repeat(format, remainder - 1, ", "), data.slice(data.length - remainder, data.length - 1));
-				s += Sprintf.format(", " + format, [data[data.length - 1]]);
+				s = Printf.format(_repeat(format, remainder - 1, ", "), data.slice(data.length - remainder, data.length - 1));
+				s += Printf.format(", " + format, [data[data.length - 1]]);
 			}
 			else
-				s = Sprintf.format(format, [data[data.length - 1]]);
+				s = Printf.format(format, [data[data.length - 1]]);
 			
 			t.push(s);
 		}

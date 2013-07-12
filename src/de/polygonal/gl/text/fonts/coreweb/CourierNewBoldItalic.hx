@@ -458,7 +458,7 @@ class CourierNewBoldItalic extends de.polygonal.gl.text.MonospaceVectorFont
 		 126,     11.572,    -38.818,     60.595,    -18.017
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

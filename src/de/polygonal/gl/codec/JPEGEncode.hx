@@ -38,9 +38,6 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-#if (!flash && !cpp)
-"The JPEGEncode class is only available for flash/cpp"
-#end
 
 package de.polygonal.gl.codec;
 
@@ -93,13 +90,13 @@ private class ArrAccess<T>
 		_a = new Array<T>();
 	}
 	
-	public function fromArray(a:Array<T>):Void
+	public function fromArray(a:Array<T>)
 	{
 		for (i in 0...a.length) _a[i] = a[i];
 	}
 	
-	inline public function get(i:Int):T { return _a[i]; }
-	inline public function set(i:Int, x:T):Void { _a[i] = x; }
+	inline public function get(i:Int):T return _a[i];
+	inline public function set(i:Int, x:T) _a[i] = x;
 }
 
 /**
@@ -218,7 +215,7 @@ class JPEGEncode
 	var _sourceByteArray:ByteArray;
 	var _sourceBitmapData:BitmapData;
 	
-	function _initTables():Void
+	function _initTables()
 	{
 		#if flash10
 		_std_dc_luminance_nrcodes = ByteMemory.ofArray(STD_DC_LUMINANCE_NRCODES);
@@ -248,19 +245,19 @@ class JPEGEncode
 		_YDC_HT_L = new IntMemory(12, "JPEGEncode.YDC_HT_L");
 		_YDC_HT_V = new IntMemory(12, "JPEGEncode.YDC_HT_V");
 		
-		_computeHuffmanTbl(_std_dc_luminance_nrcodes  , _std_dc_luminance_values, _YDC_HT_L, _YDC_HT_V);
+		computeHuffmanTbl(_std_dc_luminance_nrcodes  , _std_dc_luminance_values, _YDC_HT_L, _YDC_HT_V);
 		
 		_UVDC_HT_L = new IntMemory(12, "JPEGEncode.UVDC_HT_L");
 		_UVDC_HT_V = new IntMemory(12, "JPEGEncode.UVDC_HT_V");
-		_computeHuffmanTbl(_std_dc_chrominance_nrcodes, _std_dc_chrominance_values, _UVDC_HT_L, _UVDC_HT_V);
+		computeHuffmanTbl(_std_dc_chrominance_nrcodes, _std_dc_chrominance_values, _UVDC_HT_L, _UVDC_HT_V);
 		
 		_YAC_HT_L = new IntMemory(251, "JPEGEncode.YAC_HT_L");
 		_YAC_HT_V = new IntMemory(251, "JPEGEncode.YAC_HT_V");
-		_computeHuffmanTbl(_std_ac_luminance_nrcodes  , _std_ac_luminance_values, _YAC_HT_L, _YAC_HT_V);
+		computeHuffmanTbl(_std_ac_luminance_nrcodes  , _std_ac_luminance_values, _YAC_HT_L, _YAC_HT_V);
 		
 		_UVAC_HT_L = new IntMemory(251, "JPEGEncode.UVAC_HT_L");
 		_UVAC_HT_V = new IntMemory(251, "JPEGEncode.UVAC_HT_V");
-		_computeHuffmanTbl(_std_ac_chrominance_nrcodes, _std_ac_chrominance_values, _UVAC_HT_L, _UVAC_HT_V);
+		computeHuffmanTbl(_std_ac_chrominance_nrcodes, _std_ac_chrominance_values, _UVAC_HT_L, _UVAC_HT_V);
 		#else
 		_std_dc_luminance_nrcodes = new ArrAccess<Int>();
 		_std_dc_luminance_nrcodes.fromArray(STD_DC_LUMINANCE_NRCODES);
@@ -305,19 +302,19 @@ class JPEGEncode
 		_YDC_HT_L = new ArrAccess<Int>();
 		_YDC_HT_V = new ArrAccess<Int>();
 		
-		_computeHuffmanTbl(_std_dc_luminance_nrcodes  , _std_dc_luminance_values, _YDC_HT_L, _YDC_HT_V);
+		computeHuffmanTbl(_std_dc_luminance_nrcodes  , _std_dc_luminance_values, _YDC_HT_L, _YDC_HT_V);
 		
 		_UVDC_HT_L = new ArrAccess<Int>();
 		_UVDC_HT_V = new ArrAccess<Int>();
-		_computeHuffmanTbl(_std_dc_chrominance_nrcodes, _std_dc_chrominance_values, _UVDC_HT_L, _UVDC_HT_V);
+		computeHuffmanTbl(_std_dc_chrominance_nrcodes, _std_dc_chrominance_values, _UVDC_HT_L, _UVDC_HT_V);
 		
 		_YAC_HT_L = new ArrAccess<Int>();
 		_YAC_HT_V = new ArrAccess<Int>();
-		_computeHuffmanTbl(_std_ac_luminance_nrcodes  , _std_ac_luminance_values, _YAC_HT_L, _YAC_HT_V);
+		computeHuffmanTbl(_std_ac_luminance_nrcodes  , _std_ac_luminance_values, _YAC_HT_L, _YAC_HT_V);
 		
 		_UVAC_HT_L = new ArrAccess<Int>();
 		_UVAC_HT_V = new ArrAccess<Int>();
-		_computeHuffmanTbl(_std_ac_chrominance_nrcodes, _std_ac_chrominance_values, _UVAC_HT_L, _UVAC_HT_V);
+		computeHuffmanTbl(_std_ac_chrominance_nrcodes, _std_ac_chrominance_values, _UVAC_HT_L, _UVAC_HT_V);
 		#end
 	}
 	
@@ -326,7 +323,7 @@ class JPEGEncode
 	 * The value does not affect the encoding speed. Note that even though this value is a number between 0.0 and 100.0, 
 	 * it does not represent a percentage. The default value is 50.0.
 	 */
-	public function new(?quality = 50)
+	public function new(quality = 50)
 	{
 		_bytenew = 0;
 		_bytepos = 7;
@@ -341,11 +338,11 @@ class JPEGEncode
 			sf = (200 - quality * 2).int();
 		
 		_initTables();
-		_initCategoryNumber();
-		_initQuantTables(sf);
+		initCategoryNumber();
+		initQuantTables(sf);
 	}
 	
-	public function free():Void
+	public function free()
 	{
 		#if flash10
 		_std_dc_luminance_nrcodes.free();
@@ -411,7 +408,7 @@ class JPEGEncode
 	{
 		_sourceByteArray = byteArray;
 		_sourceBitmapData = null;
-		return _internalEncode(width, height);
+		return internalEncode(width, height);
 	}
 	
 	/**
@@ -422,10 +419,10 @@ class JPEGEncode
 	{
 		_sourceByteArray = null;
 		_sourceBitmapData = bitmapData;
-		return _internalEncode(bitmapData.width, bitmapData.height);
+		return internalEncode(bitmapData.width, bitmapData.height);
 	}
 	
-	function _computeHuffmanTbl(nrcodes:ByteAccess, std_table:ByteAccess, out_len:IntAccess, out_val:IntAccess):Void
+	function computeHuffmanTbl(nrcodes:ByteAccess, std_table:ByteAccess, out_len:IntAccess, out_val:IntAccess)
 	{
 		var codevalue = 0;
 		var pos_in_table = 0;
@@ -447,7 +444,7 @@ class JPEGEncode
 		}
 	}
 	
-	function _initCategoryNumber():Void
+	function initCategoryNumber()
 	{
 		var nrlower = 1;
 		var nrupper = 2;
@@ -476,7 +473,7 @@ class JPEGEncode
 		}
 	}
 	
-	function _initQuantTables(sf:Int):Void
+	function initQuantTables(sf:Int)
 	{
 		var YQT =
 		[
@@ -537,18 +534,18 @@ class JPEGEncode
 		}
 	}
 	
-	function _internalEncode(width:Int, height:Int):ByteArray
+	function internalEncode(width:Int, height:Int):ByteArray
 	{
 		_byteout = new ByteArray();
 		_bytenew = 0;
 		_bytepos = 7;
 		
-		_writeWord(0xFFD8);
-		_writeAPP0();
-		_writeDQT();
-		_writeSOF0(width, height);
-		_writeDHT();
-		_writeSOS();
+		writeWord(0xFFD8);
+		writeAPP0();
+		writeDQT();
+		writeSOF0(width, height);
+		writeDHT();
+		writeSOS();
 		
 		var DCY = .0;
 		var DCU = .0;
@@ -564,22 +561,22 @@ class JPEGEncode
 			while (xpos < width)
 			{
 				RGB2YUV(xpos, ypos, width, height);
-				DCY = _processDU(_YDU, _fdtbl_Y , DCY, _YDC_HT_L, _YDC_HT_V, _YAC_HT_L, _YAC_HT_V);
-				DCU = _processDU(_UDU, _fdtbl_UV, DCU, _UVDC_HT_L, _UVDC_HT_V, _UVAC_HT_L, _UVAC_HT_V);
-				DCV = _processDU(_VDU, _fdtbl_UV, DCV, _UVDC_HT_L, _UVDC_HT_V, _UVAC_HT_L, _UVAC_HT_V);
+				DCY = processDU(_YDU, _fdtbl_Y , DCY, _YDC_HT_L, _YDC_HT_V, _YAC_HT_L, _YAC_HT_V);
+				DCU = processDU(_UDU, _fdtbl_UV, DCU, _UVDC_HT_L, _UVDC_HT_V, _UVAC_HT_L, _UVAC_HT_V);
+				DCV = processDU(_VDU, _fdtbl_UV, DCV, _UVDC_HT_L, _UVDC_HT_V, _UVAC_HT_L, _UVAC_HT_V);
 				xpos += 8;
 			}
 			ypos += 8;
 		}
 		
 		if (_bytepos >= 0)
-			_writeBits(_bytepos + 1, (1 << (_bytepos + 1)) - 1);
+			writeBits(_bytepos + 1, (1 << (_bytepos + 1)) - 1);
 		
-		_writeWord(0xFFD9);
+		writeWord(0xFFD9);
 		return _byteout;
 	}
 	
-	function RGB2YUV(xpos:Int, ypos:Int, width:Int, height:Int):Void
+	function RGB2YUV(xpos:Int, ypos:Int, width:Int, height:Int)
 	{
 		if (_sourceBitmapData != null)
 		{
@@ -638,14 +635,14 @@ class JPEGEncode
 		}
 	}
 	
-	function _processDU(CDU:FloatAccess, fdtbl:FloatAccess, DC:Float, HTDC_L:IntAccess, HTDC_V:IntAccess, HTAC_L:IntAccess, HTAC_V:IntAccess):Float
+	function processDU(CDU:FloatAccess, fdtbl:FloatAccess, DC:Float, HTDC_L:IntAccess, HTDC_V:IntAccess, HTAC_L:IntAccess, HTAC_V:IntAccess):Float
 	{
 		var EOB_l = HTAC_L.get(0);
 		var EOB_v = HTAC_V.get(0);
 		var M16zeroes_l = HTAC_L.get(0xF0);
 		var M16zeroes_v = HTAC_V.get(0xF0);
 		
-		var DU_DCT = _fDCTQuant(CDU, fdtbl);
+		var DU_DCT = fDCTQuant(CDU, fdtbl);
 		
 		for (i in 0...64) _DU.set(_ZigZag.get(i), DU_DCT.get(i).int());
 		
@@ -654,13 +651,13 @@ class JPEGEncode
 		DC = du0;
 		
 		if (Diff == 0)
-			_writeBits(HTDC_L.get(0), HTDC_V.get(0));
+			writeBits(HTDC_L.get(0), HTDC_V.get(0));
 		else
 		{
 			var pos = (32767 + Diff);
 			var tmp = _category.get(pos);
-			_writeBits(HTDC_L.get(tmp), HTDC_V.get(tmp));
-			_writeBits(_bitcode_l.get(pos), _bitcode_v.get(pos));
+			writeBits(HTDC_L.get(tmp), HTDC_V.get(tmp));
+			writeBits(_bitcode_l.get(pos), _bitcode_v.get(pos));
 		}
 		
 		var end0pos = 63;
@@ -669,7 +666,7 @@ class JPEGEncode
 		
 		if (end0pos == 0)
 		{
-			_writeBits(EOB_l, EOB_v);
+			writeBits(EOB_l, EOB_v);
 			return DC;
 		}
 		
@@ -685,7 +682,7 @@ class JPEGEncode
 				var nrmarker = 1;
 				while (nrmarker <= lng)
 				{
-					_writeBits(M16zeroes_l, M16zeroes_v);
+					writeBits(M16zeroes_l, M16zeroes_v);
 					nrmarker++;
 				}
 				nrzeroes = nrzeroes & 0xF;
@@ -693,17 +690,17 @@ class JPEGEncode
 			
 			var pos = 32767 + _DU.get(i);
 			var tmp = ((nrzeroes << 4) + _category.get(pos));
-			_writeBits(HTAC_L.get(tmp), HTAC_V.get(tmp));
-			_writeBits(_bitcode_l.get(pos), _bitcode_v.get(pos));
+			writeBits(HTAC_L.get(tmp), HTAC_V.get(tmp));
+			writeBits(_bitcode_l.get(pos), _bitcode_v.get(pos));
 			i++;
 		}
 		
-		if (end0pos != 63) _writeBits(EOB_l, EOB_v);
+		if (end0pos != 63) writeBits(EOB_l, EOB_v);
 		
 		return DC;
 	}
 	
-	function _fDCTQuant(data:FloatAccess, fdtbl:FloatAccess):FloatAccess
+	function fDCTQuant(data:FloatAccess, fdtbl:FloatAccess):FloatAccess
 	{
 		var dataOff = 0;
 		
@@ -834,7 +831,7 @@ class JPEGEncode
 		return data;
 	}
 	
-	inline function _writeBits(len:Int, value:Int):Void
+	inline function writeBits(len:Int, value:Int)
 	{
 		var posval = len - 1;
 		while (posval >= 0)
@@ -848,11 +845,11 @@ class JPEGEncode
 			{
 				if (_bytenew == 0xFF)
 				{
-					_writeByte(0xFF);
-					_writeByte(0);
+					writeByte(0xFF);
+					writeByte(0);
 				}
 				else
-					_writeByte(_bytenew);
+					writeByte(_bytenew);
 				
 				_bytepos = 7;
 				_bytenew = 0;
@@ -860,106 +857,106 @@ class JPEGEncode
 		}
 	}
 	
-	function _writeAPP0():Void
+	function writeAPP0()
 	{
-		_writeWord(0xFFE0);
-		_writeWord(16);
-		_writeByte(0x4A);
-		_writeByte(0x46);
-		_writeByte(0x49);
-		_writeByte(0x46);
-		_writeByte(0);
-		_writeByte(1);
-		_writeByte(1);
-		_writeByte(0);
-		_writeWord(1);
-		_writeWord(1);
-		_writeByte(0);
-		_writeByte(0);
+		writeWord(0xFFE0);
+		writeWord(16);
+		writeByte(0x4A);
+		writeByte(0x46);
+		writeByte(0x49);
+		writeByte(0x46);
+		writeByte(0);
+		writeByte(1);
+		writeByte(1);
+		writeByte(0);
+		writeWord(1);
+		writeWord(1);
+		writeByte(0);
+		writeByte(0);
 	}
 	
-	function _writeDQT():Void
+	function writeDQT()
 	{
-		_writeWord(0xFFDB);
-		_writeWord(132);
-		_writeByte(0);
+		writeWord(0xFFDB);
+		writeWord(132);
+		writeByte(0);
 		
-		for (i in 0...64) _writeByte(_YTable.get(i));
+		for (i in 0...64) writeByte(_YTable.get(i));
 		
-		_writeByte(1);
+		writeByte(1);
 		
-		for (i in 0...64) _writeByte(_UVTable.get(i));
+		for (i in 0...64) writeByte(_UVTable.get(i));
 	}
 	
-	function _writeSOF0(width:Int, height:Int):Void
+	function writeSOF0(width:Int, height:Int)
 	{
-		_writeWord(0xFFC0);
-		_writeWord(17);
-		_writeByte(8);
-		_writeWord(height);
-		_writeWord(width);
-		_writeByte(3);
-		_writeByte(1);
-		_writeByte(0x11);
-		_writeByte(0);
-		_writeByte(2);
-		_writeByte(0x11);
-		_writeByte(1);
-		_writeByte(3);
-		_writeByte(0x11);
-		_writeByte(1);
+		writeWord(0xFFC0);
+		writeWord(17);
+		writeByte(8);
+		writeWord(height);
+		writeWord(width);
+		writeByte(3);
+		writeByte(1);
+		writeByte(0x11);
+		writeByte(0);
+		writeByte(2);
+		writeByte(0x11);
+		writeByte(1);
+		writeByte(3);
+		writeByte(0x11);
+		writeByte(1);
 	}
 	
-	function _writeDHT():Void
+	function writeDHT()
 	{
-		_writeWord(0xFFC4);
-		_writeWord(0x01A2);
+		writeWord(0xFFC4);
+		writeWord(0x01A2);
 		
-		_writeByte(0);
+		writeByte(0);
 		
-		for (i in 0...16) _writeByte(_std_dc_luminance_nrcodes.get(i + 1));
-		for (i in 0...11 + 1) _writeByte(_std_dc_luminance_values.get(i));
+		for (i in 0...16) writeByte(_std_dc_luminance_nrcodes.get(i + 1));
+		for (i in 0...11 + 1) writeByte(_std_dc_luminance_values.get(i));
 		
-		_writeByte(0x10);
+		writeByte(0x10);
 		
-		for (i in 0...16) _writeByte(_std_ac_luminance_nrcodes.get(i + 1));
-		for (i in 0...161 + 1) _writeByte(_std_ac_luminance_values.get(i));
+		for (i in 0...16) writeByte(_std_ac_luminance_nrcodes.get(i + 1));
+		for (i in 0...161 + 1) writeByte(_std_ac_luminance_values.get(i));
 		
-		_writeByte(1);
+		writeByte(1);
 		
-		for (i in 0...16) _writeByte(_std_dc_chrominance_nrcodes.get(i + 1));
-		for (i in 0...11 + 1) _writeByte(_std_dc_chrominance_values.get(i));
+		for (i in 0...16) writeByte(_std_dc_chrominance_nrcodes.get(i + 1));
+		for (i in 0...11 + 1) writeByte(_std_dc_chrominance_values.get(i));
 		
-		_writeByte(0x11);
+		writeByte(0x11);
 		
-		for (i in 0...16) _writeByte(_std_ac_chrominance_nrcodes.get(i + 1));
-		for (i in 0...161 + 1) _writeByte(_std_ac_chrominance_values.get(i));
+		for (i in 0...16) writeByte(_std_ac_chrominance_nrcodes.get(i + 1));
+		for (i in 0...161 + 1) writeByte(_std_ac_chrominance_values.get(i));
 	}
 	
-	function _writeSOS():Void
+	function writeSOS()
 	{
-		_writeWord(0xFFDA);
-		_writeWord(12);
-		_writeByte(3);
-		_writeByte(1);
-		_writeByte(0);
-		_writeByte(2);
-		_writeByte(0x11);
-		_writeByte(3);
-		_writeByte(0x11);
-		_writeByte(0);
-		_writeByte(0x3f);
-		_writeByte(0);
+		writeWord(0xFFDA);
+		writeWord(12);
+		writeByte(3);
+		writeByte(1);
+		writeByte(0);
+		writeByte(2);
+		writeByte(0x11);
+		writeByte(3);
+		writeByte(0x11);
+		writeByte(0);
+		writeByte(0x3f);
+		writeByte(0);
 	}
 	
-	function _writeByte(value:Int):Void
+	function writeByte(value:Int)
 	{
 		_byteout.writeByte(value);
 	}
 	
-	function _writeWord(value:Int):Void
+	function writeWord(value:Int)
 	{
-		_writeByte((value >> 8) & 0xFF);
-		_writeByte(value & 0xFF);
+		writeByte((value >> 8) & 0xFF);
+		writeByte(value & 0xFF);
 	}
 }

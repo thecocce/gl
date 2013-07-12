@@ -39,12 +39,24 @@ private typedef UInt = Int;
 
 class ColorRGBA extends Vec3
 {
-	inline public static function ofInt(x:Int):ColorRGBA
+	inline static var INV_FF = 0.00392156862745098;
+	
+	inline public static function ofRGB(x:Int):ColorRGBA
 	{
-		return new ColorRGBA(x.getR(), x.getG(), x.getB(), x.getA());
+		return new ColorRGBA(x.getR() * INV_FF, x.getG() * INV_FF, x.getB() * INV_FF, 1);
 	}
 	
-	inline public static function toInt(x:ColorRGBA):UInt
+	inline public static function toRGB(x:ColorRGBA):Int
+	{
+		return RGBA.ofFloat3(x.r, x.g, x.b);
+	}
+	
+	inline public static function ofARGB(x:Int):ColorRGBA
+	{
+		return new ColorRGBA(x.getR() * INV_FF, x.getG() * INV_FF, x.getB() * INV_FF, x.getA() * INV_FF);
+	}
+	
+	inline public static function toARGB(x:ColorRGBA):UInt
 	{
 		return RGBA.ofFloat4(x.r, x.g, x.b, x.a);
 	}
@@ -54,14 +66,14 @@ class ColorRGBA extends Vec3
 		super(r, g, b, a);
 	}
 	
-	inline public function set3(r:Float, g:Float, b:Float):Void
+	inline public function set3(r:Float, g:Float, b:Float)
 	{
 		x = r;
 		y = g;
 		z = b;
 	}
 	
-	inline public function set4(r:Float, g:Float, b:Float, a:Float):Void
+	inline public function set4(r:Float, g:Float, b:Float, a:Float)
 	{
 		x = r;
 		y = g;

@@ -497,7 +497,7 @@ class GeorgiaBold extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      7.080,    -37.939,     63.232,    -18.164
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

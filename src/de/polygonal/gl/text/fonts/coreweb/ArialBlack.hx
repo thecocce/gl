@@ -362,7 +362,7 @@ class ArialBlack extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      4.833,    -47.558,     60.838,    -24.023
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

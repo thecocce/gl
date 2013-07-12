@@ -29,7 +29,6 @@
  */
 package de.polygonal.gl.text.util;
 
-import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.math.Vec2;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.core.util.Assert;
@@ -115,7 +114,7 @@ class EPSFMetricsReader
 	
 	var _index:Int;
 	
-	function _readMet(source:String):Void
+	function _readMet(source:String)
 	{
 		emsquare = _readSignedInteger(source);
 		ascent   = _readSignedInteger(source);
@@ -160,7 +159,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _scanMetrics(s:String, queue:LinkedQueue<Token>):Void
+	function _scanMetrics(s:String, queue:LinkedQueue<Token>)
 	{
 		_index = 0;
 		
@@ -281,7 +280,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseSpacing(source:LinkedQueue<Token>):Void
+	function _parseSpacing(source:LinkedQueue<Token>)
 	{
 		spacingValues = new Array<Int>();
 		
@@ -316,7 +315,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseKerning(source:LinkedQueue<Token>):Void
+	function _parseKerning(source:LinkedQueue<Token>)
 	{
 		kerningPairs = new Array<KernInfo>();
 		
@@ -365,7 +364,7 @@ class EPSFMetricsReader
 	var _xPenOffset:Float;
 	var _yPenOffset:Float;
 	
-	function _readEps(source:String):Void
+	function _readEps(source:String)
 	{
 		glyphBounds = new Array<AABB2>();
 		_maxHeight = -1;
@@ -394,13 +393,13 @@ class EPSFMetricsReader
 	}
 	
 	/** Nullifies references so all used resources can be garbage collected. */
-	public function free():Void
+	public function free()
 	{
 		_vr.free();
 		_canvas.graphics.clear();
 	}
 	
-	function _scanEPSF(s:String, queue:LinkedQueue<Token>):Void
+	function _scanEPSF(s:String, queue:LinkedQueue<Token>)
 	{
 		_index = 0;
 		while (_index < s.length)
@@ -474,7 +473,7 @@ class EPSFMetricsReader
 		}
 	}
 	
-	function _parseEPSF(source:LinkedQueue<Token>):Void
+	function _parseEPSF(source:LinkedQueue<Token>)
 	{
 		_vr.setLineStyle(0, 0.5, 0);
 		_vr.crossHair3(0, 0, 20);
@@ -526,7 +525,7 @@ class EPSFMetricsReader
 		{
 			if (!foundGlyphs[i])
 			{
-				trace(Sprintf.format("char %d is missing", [i]));
+				trace(Printf.format("char %d is missing", [i]));
 				charCodeRange[i] = false;
 			}
 		}
@@ -534,7 +533,7 @@ class EPSFMetricsReader
 		_vr.flush(_canvas.graphics);
 	}
 	
-	function _flush(buffer:LinkedQueue<Token>, output:LinkedQueue<Dynamic>):Void
+	function _flush(buffer:LinkedQueue<Token>, output:LinkedQueue<Dynamic>)
 	{
 		_vr.setLineStyle(0, 1, 0);
 		
@@ -726,7 +725,7 @@ class EPSFMetricsReader
 		_xPenOffset += x;
 	}
 	
-	function _drawMoveTo(x:Float, y:Float, c:Int):Void
+	function _drawMoveTo(x:Float, y:Float, c:Int)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -735,7 +734,7 @@ class EPSFMetricsReader
 		_vr.moveTo2(x, y);
 	}
 	
-	function _drawLineTo(x:Float, y:Float, c:Int):Void
+	function _drawLineTo(x:Float, y:Float, c:Int)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -743,7 +742,7 @@ class EPSFMetricsReader
 		_vr.lineTo2(x, y);
 	}
 	
-	function _drawCurveTo(x:Float, y:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float):Void
+	function _drawCurveTo(x:Float, y:Float, x1:Float, y1:Float, x2:Float, y2:Float, x3:Float, y3:Float)
 	{
 		x  += _xPenOffset;
 		y  += _yPenOffset;
@@ -764,7 +763,7 @@ class EPSFMetricsReader
 		//_vr.crossHair2(x3, y3, 2);
 	}
 	
-	function _drawIndex(x:Float, y:Float, s:String):Void
+	function _drawIndex(x:Float, y:Float, s:String)
 	{
 		x += _xPenOffset;
 		y += _yPenOffset;
@@ -936,24 +935,24 @@ private class Token
 			
 			case CHAR:
 			
-			return Sprintf.format("CHAR %s[%d]", [char, char.charCodeAt(0)]);
+			return Printf.format("CHAR %s[%d]", [char, char.charCodeAt(0)]);
 			
 			case CHAR_INFO:
 			
-			return Sprintf.format("CHAR_INFO #%d x: %.3f y: %.3f w: %.3f h: %.3f uni %d",
+			return Printf.format("CHAR_INFO #%d x: %.3f y: %.3f w: %.3f h: %.3f uni %d",
 				[charInfo.charNumber, charInfo.xOffset, charInfo.yOffset, charInfo.xWidth, charInfo.yWidth, charInfo.unicodeValue]);
 			
 			case FLOAT:
 			
-			return Sprintf.format("FLOAT %.3f", [float]);
+			return Printf.format("FLOAT %.3f", [float]);
 			
 			case INT:
 			
-			return Sprintf.format("INT %.3f", [int]);
+			return Printf.format("INT %.3f", [int]);
 			
 			case OPERATOR:
 			
-			return Sprintf.format("OPERATOR %s", [operator]);
+			return Printf.format("OPERATOR %s", [operator]);
 		}
 	}
 }
@@ -987,6 +986,6 @@ private class KernInfo
 	
 	public function toString():String
 	{
-		return Sprintf.format("KernInfo a: %d[%s] b: %d[%s] kern: %d", [a, String.fromCharCode(a), b, String.fromCharCode(b), kern]);
+		return Printf.format("KernInfo a: %d[%s] b: %d[%s] kern: %d", [a, String.fromCharCode(a), b, String.fromCharCode(b), kern]);
 	}
 }

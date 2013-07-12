@@ -84,11 +84,11 @@ class ColorConversion
 		
 		return hsv;
 	}
-
+	
 	/**
 	 * Converts a <i>hsv</i> color value to an <i>rgb</i> color value.
-	 * @param rgb Stores the result. If omitted, the method creates a new RGB object.
-	 * @return The <i>rgb</i> object or a new RGB object if <i>rgb</i> was not specified.
+	 * @param rgb Stores the result. If omitted, the method creates a new ColorRGBA object.
+	 * @return The <i>rgb</i> object or a new ColorRGBA object if <i>rgb</i> was not specified.
 	 */
 	inline public static function HSVtoRGB(hsv:ColorHSV, rgb:ColorRGBA = null):ColorRGBA
 	{

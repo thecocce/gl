@@ -338,7 +338,7 @@ class ArialBold extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      3.272,    -45.116,     55.126,    -25.341
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

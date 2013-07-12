@@ -36,7 +36,7 @@ using de.polygonal.core.math.Mathematics;
 
 class ColorXForm
 {
-	inline static var INV_FF = .00392156;
+	inline static var INV_FF = 0.00392156862745098;
 	
 	inline public static function lerp(a:ColorXForm, b:ColorXForm, alpha:Float, output:ColorXForm):ColorXForm
 	{
@@ -76,7 +76,13 @@ class ColorXForm
 		offset = new ColorRGBA(redOffset, greenOffset, blueOffset, alphaOffset);
 	}
 	
-	inline public function setMultiplier(rgb:Float, alpha = -1):Void
+	public function free()
+	{
+		multiplier = null;
+		offset = null;
+	}
+	
+	inline public function setMultiplier(rgb:Float, alpha = -1.)
 	{
 		var t = multiplier;
 		t.x = rgb;
@@ -85,7 +91,7 @@ class ColorXForm
 		if (alpha != -1) t.w = alpha;
 	}
 	
-	inline public function setOffset(rgb:Float, alpha = -1):Void
+	inline public function setOffset(rgb:Float, alpha = -1.)
 	{
 		var t = offset;
 		t.x = rgb;
@@ -98,9 +104,9 @@ class ColorXForm
 	 * @param color tinting color in the 0xRRGGBB format.
 	 * @param percent percentage to apply the tint color in <arg>&#091;0, 1&#093;</arg>.
 	 */
-	inline public function setTint(color:Int, percent:Float):Void
+	inline public function setTint(color:Int, percent:Float)
 	{
-		var oneMinusMultiplier = 1 - percent;
+		var oneMinusMultiplier = 1. - percent;
 		setMultiplier(oneMinusMultiplier);
 		offset.x = Std.int(color.getR() * percent);
 		offset.y = Std.int(color.getG() * percent);
@@ -110,7 +116,7 @@ class ColorXForm
 	/**
 	 * @param x the brightness value in <arg>&#091;-1, 1&#093;</arg>.
 	 */
-	inline public function setBrightness(x:Float):Void
+	inline public function setBrightness(x:Float)
 	{
 		x = x.fclamp(-1, 1);
 		setMultiplier(1 - x.fabs());

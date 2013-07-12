@@ -56,7 +56,17 @@ class RGBA
 	inline public static function getRGB(rgba:UInt):UInt        { return rgba & 0x00ffffff; }
 	inline public static function setRGB(rgba:UInt, x:Int):UInt { return x | rgba; }
 	
+	inline public static function ofInt3(r:Int, g:Int, b:Int):Int { return r << 16 | g << 8 | b; }
+	
 	inline public static function ofInt4(r:Int, g:Int, b:Int, a:Int):UInt { return a << 24 | r << 16 | g << 8 | b; }
+	
+	inline public static function ofFloat3(r:Float, g:Float, b:Float):Int
+	{
+		return ofInt3(
+			Std.int(r.fclamp(0, 1) * 0xff),
+			Std.int(g.fclamp(0, 1) * 0xff),
+			Std.int(b.fclamp(0, 1) * 0xff));
+	}
 	
 	inline public static function ofFloat4(r:Float, g:Float, b:Float, a:Float):UInt
 	{

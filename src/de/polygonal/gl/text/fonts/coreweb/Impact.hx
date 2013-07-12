@@ -355,7 +355,7 @@ class Impact extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      2.783,    -51.855,     49.706,    -30.419
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;	
 		switch (charCode)

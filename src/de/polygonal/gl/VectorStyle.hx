@@ -106,7 +106,7 @@ class VectorStyle
 	}
 	
 	/** Nullifies references for GC'ing used resources. */
-	public function free():Void
+	public function free()
 	{
 		#if flash
 		lineScaleMode = null;
@@ -116,13 +116,13 @@ class VectorStyle
 	}
 	
 	/** Disables line drawing by setting <i>lineThickness</i> to NaN. */
-	inline public function clearStroke():Void
+	inline public function clearStroke()
 	{
 		lineThickness = Math.NaN;
 	}
 	
 	/** Assigns a line color and line alpha. */
-	inline public function setLineColor(rgb:Int, ?alpha = 1., ?thickness = .0):Void
+	inline public function setLineColor(rgb:Int, ?alpha = 1., ?thickness = .0)
 	{
 		lineColor = rgb;
 		lineAlpha = alpha;
@@ -150,7 +150,7 @@ class VectorStyle
 	}
 	
 	/** Copies the values from the specified <i>style</i> object into this style.*/
-	public function paste(style:VectorStyle):Void
+	public function paste(style:VectorStyle)
 	{
 		lineColor        = style.lineColor;
 		lineAlpha        = style.lineAlpha;

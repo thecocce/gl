@@ -673,7 +673,7 @@ class ColorMatrix
 		return values;
 	}
 	
-	inline function initHue():Void
+	inline function initHue()
 	{
 		var greenRotation = 39.182655;
 		

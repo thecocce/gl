@@ -31,14 +31,12 @@ package de.polygonal.gl.text.util;
 
 import de.polygonal.core.event.IObservable;
 import de.polygonal.core.event.IObserver;
-import de.polygonal.core.fmt.Sprintf;
-import de.polygonal.core.io.Resource;
-import de.polygonal.core.io.ResourceEvent;
-import de.polygonal.core.io.ResourceLoaderEvent;
-import de.polygonal.core.io.ResourceType;
 import de.polygonal.core.util.Assert;
 import de.polygonal.ds.Hashable;
 import de.polygonal.ds.LinkedQueue;
+import de.polygonal.native.flash.io.Resource;
+import de.polygonal.native.flash.io.ResourceEvent;
+import de.polygonal.native.flash.io.ResourceType;
 import flash.net.URLRequest;
 import flash.utils.ByteArray;
 
@@ -70,7 +68,7 @@ class ByteArrayHandler implements IObserver
 	{
 	}
 	
-	public function writeBytes(data:EPSFMetricsReader):Void
+	public function writeBytes(data:EPSFMetricsReader)
 	{
 		_data = data;
 		
@@ -95,14 +93,14 @@ class ByteArrayHandler implements IObserver
 		bytes.compress();
 	}
 	
-	public function loadBytes(url:String):Void
+	public function loadBytes(url:String)
 	{
 		var res = new Resource(new URLRequest(url), ResourceType.RAW);
 		res.attach(this);
 		res.load();
 	}
 	
-	public function readBytes(bytes:ByteArray):Void
+	public function readBytes(bytes:ByteArray)
 	{
 		this.bytes = bytes;
 		
@@ -124,7 +122,7 @@ class ByteArrayHandler implements IObserver
 		}
 	}
 	
-	public function update(type:Int, source:IObservable, userData:Dynamic):Void
+	public function onUpdate(type:Int, source:IObservable, userData:Dynamic)
 	{
 		if (type == ResourceEvent.COMPLETE)
 		{
@@ -133,14 +131,14 @@ class ByteArrayHandler implements IObserver
 		}
 	}
 	
-	function _writeSpacing():Void
+	function _writeSpacing()
 	{
 		bytes.writeShort(_data.spacingValues.length);
 		for (i in _data.spacingValues)
 			bytes.writeShort(i);
 	}
 	
-	function _writeKerning():Void
+	function _writeKerning()
 	{
 		var table = KerningTable.compute(_data);
 		bytes.writeShort(table.length);
@@ -148,7 +146,7 @@ class ByteArrayHandler implements IObserver
 			bytes.writeShort(i);
 	}
 	
-	function _writeGlyphs():Void
+	function _writeGlyphs()
 	{
 		//write total number of glyphs to the byte stream
 		//range is inclusive, e.g. [40,120] => length=121
@@ -257,7 +255,7 @@ class ByteArrayHandler implements IObserver
 		}
 	}
 	
-	function _writeBound():Void
+	function _writeBound()
 	{
 		var numBound = 0;
 		for (i in 0..._data.glyphBounds.length)
@@ -285,7 +283,7 @@ class ByteArrayHandler implements IObserver
 		}
 	}
 	
-	function _readSpacing():Void
+	function _readSpacing()
 	{
 		var k = bytes.readShort();
 		spacingTable = new Array<Int>();
@@ -293,7 +291,7 @@ class ByteArrayHandler implements IObserver
 			spacingTable[i] = bytes.readShort();
 	}
 	
-	function _readKerning():Void
+	function _readKerning()
 	{
 		var k = bytes.readShort();
 		kerningTable = new Array<Int>();
@@ -301,7 +299,7 @@ class ByteArrayHandler implements IObserver
 			kerningTable[i] = bytes.readShort();
 	}
 	
-	function _readGlyphs():Void
+	function _readGlyphs()
 	{
 		var numGlyphs = bytes.readShort();
 		
@@ -374,7 +372,7 @@ class ByteArrayHandler implements IObserver
 		}
 	}
 	
-	function _readBound():Void
+	function _readBound()
 	{
 		var numBound = bytes.readShort();
 		glyphBounds = new Array<Float>();

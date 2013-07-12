@@ -73,7 +73,7 @@ class ProportionalVectorFont extends VectorFont
 	#end
 	
 	/** Nullifies references so all used resources can be garbage collected. */
-	override public function free():Void
+	override public function free()
 	{
 		_spacingTable = null; //free() is called in VectorFontData
 		_kerningTable = null;
@@ -473,7 +473,7 @@ class ProportionalVectorFont extends VectorFont
 		return _transform(_spacingTable.get(charCode));
 	}
 	
-	function _initSpacingKerning(spacingTable:Array<Int>, kerningTable:Array<Int>):Void
+	function _initSpacingKerning(spacingTable:Array<Int>, kerningTable:Array<Int>)
 	{
 		var className = Type.getClassName(Type.getClass(this));
 		var data = VectorFont.GetSharedData().get(className);

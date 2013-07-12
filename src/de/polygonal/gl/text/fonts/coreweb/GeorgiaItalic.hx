@@ -409,7 +409,7 @@ class GeorgiaItalic extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      7.569,    -36.376,     59.179,    -18.554
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

@@ -341,7 +341,7 @@ class BitstreamVeraSansOblique extends de.polygonal.gl.text.ProportionalVectorFo
 		 126,     10.596,    -39.892,     73.192,    -22.802
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

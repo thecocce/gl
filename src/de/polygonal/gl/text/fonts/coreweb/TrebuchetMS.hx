@@ -311,7 +311,7 @@ class TrebuchetMS extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      7.714,    -34.960,     44.140,    -24.853
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

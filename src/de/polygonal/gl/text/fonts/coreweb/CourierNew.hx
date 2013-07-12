@@ -425,7 +425,7 @@ class CourierNew extends de.polygonal.gl.text.MonospaceVectorFont
 		 126,      9.131,    -35.888,     50.927,    -21.093
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;	
 		switch (charCode)

@@ -29,7 +29,6 @@
  */
 package de.polygonal.gl.text.util;
 
-import de.polygonal.core.fmt.Sprintf;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.core.util.Assert;
 

@@ -47,7 +47,7 @@ class ColorHSV
 		set(h, s, v);
 	}
 	
-	inline public function set(h:Float, s:Float, v:Float):Void
+	inline public function set(h:Float, s:Float, v:Float)
 	{
 		#if debug
 		D.assert(h >= 0 && h <= 360, 'h >= 0 && h <= 360');

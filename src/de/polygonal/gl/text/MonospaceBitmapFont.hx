@@ -29,14 +29,15 @@
  */
 package de.polygonal.gl.text;
 
-import de.polygonal.core.io.Base64;
-import de.polygonal.core.io.RLE;
+import de.polygonal.core.codec.Base64;
+import de.polygonal.core.codec.RLE;
 import de.polygonal.core.fmt.ASCII;
 import de.polygonal.ds.BitVector;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.ByteArray;
+import haxe.io.Bytes;
 
 /**
  * A monospace bitmap stores each glyph as an array of pixels.
@@ -71,7 +72,7 @@ class MonospaceBitmapFont
 		_decode(glyphs);
 	}
 	
-	public function free():Void
+	public function free()
 	{
 		_glyphs.dispose();
 		
@@ -86,7 +87,7 @@ class MonospaceBitmapFont
 		_a            = null;
 	}
 	
-	public function setColor(background:Int, foreground:Int):Void
+	public function setColor(background:Int, foreground:Int)
 	{
 		_a[0x00] = background & 0xff000000;
 		_r[0x00] = background & 0x00ff0000;
@@ -98,7 +99,7 @@ class MonospaceBitmapFont
 		_b[0xff] = foreground & 0x000000ff;
 	}
 	
-	public function drawText(bitmapData:BitmapData, text:String):Void
+	public function drawText(bitmapData:BitmapData, text:String)
 	{
 		var x0 = x;
 		var y0 = y;
@@ -142,7 +143,7 @@ class MonospaceBitmapFont
 	function _decode(base64Encoded:String)
 	{
 		var base64Uncoded = Base64.decode(base64Encoded, new ByteArray(), true);
-		var rleUncoded = RLE.decode(base64Uncoded);
+		var rleUncoded = RLE.decodeBytes(Bytes.ofData(base64Uncoded)).getData();
 		
 		charW = rleUncoded[rleUncoded.length - 3];
 		charH = rleUncoded[rleUncoded.length - 2];

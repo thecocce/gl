@@ -488,7 +488,7 @@ class ComicSansMSBold extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      2.246,    -45.605,     57.030,    -22.802
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)

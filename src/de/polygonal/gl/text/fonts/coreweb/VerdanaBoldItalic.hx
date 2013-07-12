@@ -334,7 +334,7 @@ class VerdanaBoldItalic extends de.polygonal.gl.text.ProportionalVectorFont
 		 126,      8.545,    -49.169,     80.126,    -15.869
 	];
 
-	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float):Void
+	override function _draw(charCode:Int, x:Float, y:Float, s:Float, threshold:Float)
 	{
 		var o = 0;
 		switch (charCode)
